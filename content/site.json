@@ -1,0 +1,108 @@
+{
+  "company": "BIZON Labs",
+  "email": "office@bizonlabs.com",
+  "headline": "Building the next generation of lipid nanoparticles.",
+  "subheadline": "A frontier biotechnology company developing a differentiated approach to particle design.",
+  "sections": {
+    "about": {
+      "eyebrow": "Biotechnology",
+      "title": "Rethinking particles from first principles.",
+      "body": [
+        "Lipid nanoparticles have made a new generation of medicines possible. Yet delivery remains one of biotechnology's defining challenges.",
+        "BIZON Labs is building a new approach to LNP design, grounded in the belief that particles can be engineered with more precision, flexibility, and purpose."
+      ],
+      "origin": "The name BIZON is a nod to bison, which are known for turning into a storm and moving through it rather than away from it. We take the same posture in science: walking directly toward hard delivery challenges with focus, patience, and conviction."
+    },
+    "approach": {
+      "eyebrow": "Approach",
+      "title": "A different way to build particles.",
+      "body": "Rather than treating formulation as an empirical search problem, BIZON is developing a more intentional framework for particle design. Our work focuses on understanding and shaping the physical properties that influence how LNPs behave.",
+      "pillars": [
+        {
+          "title": "Particle Design",
+          "body": "Building LNPs around desired properties from the beginning."
+        },
+        {
+          "title": "Structural Control",
+          "body": "Exploring how process innovations can influence LNP architecture."
+        },
+        {
+          "title": "Delivery Biology",
+          "body": "Mapping the relationship between LNP architecture and complex biological systems."
+        },
+        {
+          "title": "Translational Readiness",
+          "body": "Developing with real-world therapeutic applications in mind, and scalable by design."
+        }
+      ]
+    },
+    "science": {
+      "eyebrow": "Scientific Expertise",
+      "title": "The full-time team behind BIZON Labs has authored",
+      "body": "",
+      "metrics": [
+        {
+          "value": "60+",
+          "label": "papers"
+        },
+        {
+          "value": "1,500+",
+          "label": "citations"
+        }
+      ],
+      "areas": [
+        "Lipid nanoparticle formulation",
+        "Self-assembly and particle architecture",
+        "Biophysical characterization",
+        "Delivery biology and translation"
+      ],
+      "publications": [
+        {
+          "title": "Researchers behind BIZON Labs have contributed to more than 60 peer-reviewed papers, cited more than 1,500 times across public research profiles.",
+          "url": ""
+        }
+      ],
+      "profiles": [
+        {
+          "label": "Cedric Devos",
+          "url": "https://www.researchgate.net/profile/Cedric-Devos"
+        },
+        {
+          "label": "Peter Sagmeister",
+          "url": "https://www.researchgate.net/profile/Peter-Sagmeister-2"
+        },
+        {
+          "label": "Aniket Udepurkar",
+          "url": "https://adscientificindex.com/scientist/aniket-udepurkar/5923637/"
+        }
+      ]
+    },
+    "team": {
+      "eyebrow": "The Herd",
+      "title": "Built by scientists, company builders, and a deep advisory network.",
+      "intro": "BIZON Labs brings together experience across formulation, self-assembly, translational science, company formation, and biotechnology operations, with support and mentorship from a broader group of scientific, clinical, and company-building advisors.",
+      "members": [
+        {
+          "name": "Peter Sagmeister",
+          "role": "Chief Executive Officer",
+          "bio": "Founder and company builder with experience advancing biotechnology platforms."
+        },
+        {
+          "name": "Aniket Udepurkar",
+          "role": "Chief Technology Officer",
+          "bio": "Scientist focused on formulation, materials, and differentiated particle design."
+        },
+        {
+          "name": "Cedric Devos",
+          "role": "Chief Operating Officer",
+          "bio": "Operator and scientist supporting company strategy, execution, and external partnerships."
+        }
+      ]
+    },
+    "contact": {
+      "eyebrow": "Contact",
+      "title": "For scientific, partnership, investment, and career conversations.",
+      "body": "We welcome conversations with people interested in the future of lipid nanoparticle technology."
+    }
+  }
+}
