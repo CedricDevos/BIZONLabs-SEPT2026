@@ -60,13 +60,15 @@ let activeMedia = 0;
 let mediaTimer = null;
 let paperTimer = null;
 
+const scrollItemInTrack = (track, item, behavior = "smooth") => {
+  if (!track || !item) return;
+  const left = item.offsetLeft - track.offsetLeft;
+  track.scrollTo({ left, behavior });
+};
+
 const scrollMediaToActive = (behavior = "smooth") => {
   if (!mediaItems[activeMedia]) return;
-  mediaItems[activeMedia].scrollIntoView({
-    behavior,
-    block: "nearest",
-    inline: "start",
-  });
+  scrollItemInTrack(mediaGallery, mediaItems[activeMedia], behavior);
 };
 
 const syncMedia = (behavior = "smooth") => {
@@ -148,11 +150,7 @@ if (paperGallery && !reduceMotion.matches) {
     }
     paperTimer = window.setInterval(() => {
       activePaper = (activePaper + 1) % paperCards.length;
-      paperCards[activePaper].scrollIntoView({
-        behavior: "smooth",
-        block: "nearest",
-        inline: "start",
-      });
+      scrollItemInTrack(paperGallery, paperCards[activePaper]);
     }, 6800);
   };
   if (paperCards.length > 1) {
