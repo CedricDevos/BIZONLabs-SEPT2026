@@ -80,21 +80,21 @@
     "team": {
       "eyebrow": "The Herd",
       "title": "Built by scientists, company builders, and a deep advisory network.",
-      "intro": "BIZON Labs brings together experience across formulation, self-assembly, translational science, company formation, and biotechnology operations, with support and mentorship from a broader group of scientific, clinical, and company-building advisors.",
+      "intro": "BIZON Labs is led by co-founders Peter Sagmeister, Aniket Udepurkar, and Cedric Devos, bringing together experience across formulation, self-assembly, translational science, company formation, and biotechnology operations, with support and mentorship from a broader group of scientific, clinical, and company-building advisors.",
       "members": [
         {
           "name": "Peter Sagmeister",
-          "role": "Chief Executive Officer",
+          "role": "Co-founder & Chief Executive Officer",
           "bio": "Founder and company builder with experience advancing biotechnology platforms."
         },
         {
           "name": "Aniket Udepurkar",
-          "role": "Chief Technology Officer",
+          "role": "Co-founder & Chief Technology Officer",
           "bio": "Scientist focused on formulation, materials, and differentiated particle design."
         },
         {
           "name": "Cedric Devos",
-          "role": "Chief Operating Officer",
+          "role": "Co-founder & Chief Operating Officer",
           "bio": "Operator and scientist supporting company strategy, execution, and external partnerships."
         }
       ]
