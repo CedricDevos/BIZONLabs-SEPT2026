@@ -85,17 +85,20 @@
         {
           "name": "Peter Sagmeister",
           "role": "Co-founder & Chief Executive Officer",
-          "bio": "Founder and company builder with experience advancing biotechnology platforms."
+          "bio": "Founder and company builder with experience advancing biotechnology platforms.",
+          "linkedin": "https://www.linkedin.com/in/sagmeisterpeter"
         },
         {
           "name": "Aniket Udepurkar",
           "role": "Co-founder & Chief Technology Officer",
-          "bio": "Scientist focused on formulation, materials, and differentiated particle design."
+          "bio": "Scientist focused on formulation, materials, and differentiated particle design.",
+          "linkedin": "https://www.linkedin.com/in/aniket-udepurkar"
         },
         {
           "name": "Cedric Devos",
           "role": "Co-founder & Chief Operating Officer",
-          "bio": "Operator and scientist supporting company strategy, execution, and external partnerships."
+          "bio": "Operator and scientist supporting company strategy, execution, and external partnerships.",
+          "linkedin": "https://be.linkedin.com/in/cedric-devos-843551148"
         }
       ]
     },

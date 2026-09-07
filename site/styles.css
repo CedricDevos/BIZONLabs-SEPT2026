@@ -828,6 +828,38 @@ p {
   font-size: 0.98rem;
 }
 
+.linkedin-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.48rem;
+  margin-top: 1.15rem;
+  color: rgba(255, 255, 255, 0.68);
+  font-size: 0.78rem;
+  font-weight: 700;
+  line-height: 1;
+  text-decoration: none;
+  text-transform: uppercase;
+  transition: color 180ms ease, opacity 180ms ease;
+}
+
+.linkedin-link span {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 1.25rem;
+  height: 1.25rem;
+  border: 1px solid rgba(255, 255, 255, 0.22);
+  color: rgba(255, 255, 255, 0.8);
+  font-family: Arial, sans-serif;
+  font-size: 0.72rem;
+  font-weight: 700;
+}
+
+.linkedin-link:hover,
+.linkedin-link:focus-visible {
+  color: var(--white);
+}
+
 .contact-section {
   padding: clamp(5.5rem, 10vw, 9rem) clamp(1.25rem, 5vw, 5.25rem);
   background:

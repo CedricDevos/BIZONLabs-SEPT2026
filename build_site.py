@@ -51,6 +51,13 @@ def render_team(members: list[dict]) -> str:
     items = []
     for member in members:
         initials = "".join(part[0] for part in member["name"].split()[:2])
+        linkedin = ""
+        if member.get("linkedin"):
+            linkedin = (
+                f'<a class="linkedin-link" href="{member["linkedin"]}" '
+                f'target="_blank" rel="noopener" aria-label="Connect with {member["name"]} on LinkedIn">'
+                '<span aria-hidden="true">in</span> LinkedIn</a>'
+            )
         items.append(
             f"""
             <article class="team-card">
@@ -59,6 +66,7 @@ def render_team(members: list[dict]) -> str:
                 <h3>{member["name"]}</h3>
                 <p class="role">{member["role"]}</p>
                 <p>{member["bio"]}</p>
+                {linkedin}
               </div>
             </article>
             """.strip()
