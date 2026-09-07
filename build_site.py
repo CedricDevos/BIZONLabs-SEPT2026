@@ -264,6 +264,9 @@ def build() -> None:
     (DIST / "index.html").write_text(html, encoding="utf-8")
     shutil.copy2(ROOT / "site" / "styles.css", DIST / "styles.css")
     shutil.copy2(ROOT / "site" / "script.js", DIST / "script.js")
+    cname = ROOT / "site" / "CNAME"
+    if cname.exists():
+        shutil.copy2(cname, DIST / "CNAME")
     copy_tree(ROOT / "assets", DIST / "assets")
     remove_unpublished_media()
 
