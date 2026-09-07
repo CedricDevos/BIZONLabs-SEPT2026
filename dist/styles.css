@@ -363,6 +363,17 @@ p {
   display: grid;
   grid-template-columns: minmax(0, 0.9fr) minmax(300px, 0.82fr);
   gap: clamp(2.5rem, 9vw, 9rem);
+  position: relative;
+}
+
+.intro-grid::before {
+  content: "";
+  position: absolute;
+  left: clamp(1.25rem, 5vw, 5.25rem);
+  top: 0;
+  width: 1px;
+  height: 3.4rem;
+  background: rgba(28, 0, 89, 0.2);
 }
 
 .section-copy {
@@ -385,8 +396,17 @@ p {
 
 .statement-section {
   padding: clamp(4.75rem, 8vw, 7.5rem) clamp(1.25rem, 5vw, 5.25rem);
-  background: #050505;
+  background:
+    linear-gradient(90deg, rgba(124, 112, 235, 0.08), transparent 36%),
+    #050505;
   color: var(--white);
+}
+
+.statement-section .eyebrow {
+  margin-bottom: 1.2rem;
+  color: rgba(255, 255, 255, 0.42);
+  font-size: 0.82rem;
+  line-height: 1.2;
 }
 
 .statement-section p {

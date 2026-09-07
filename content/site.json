@@ -5,18 +5,18 @@
   "subheadline": "A frontier biotechnology company developing a differentiated approach to particle design.",
   "sections": {
     "about": {
-      "eyebrow": "Biotechnology",
-      "title": "Rethinking particles from first principles.",
+      "eyebrow": "Why this matters",
+      "title": "LNPs changed medicine. Delivery is still the hard part.",
       "body": [
-        "Lipid nanoparticles have made a new generation of medicines possible. Yet delivery remains one of biotechnology's defining challenges.",
-        "BIZON Labs is building a new approach to LNP design, grounded in the belief that particles can be engineered with more precision, flexibility, and purpose."
+        "Lipid nanoparticles have opened a new era for nucleic acid medicines. But the field still depends on particles that are difficult to control, hard to tune, and often discovered through extensive empirical screening.",
+        "BIZON Labs is built around a simple belief: the next generation of LNPs should be designed more intentionally from the beginning."
       ],
       "origin": "The name BIZON is a nod to bison, which are known for turning into a storm and moving through it rather than away from it. We take the same posture in science: walking directly toward hard delivery challenges with focus, patience, and conviction."
     },
     "approach": {
-      "eyebrow": "Approach",
-      "title": "A different way to build particles.",
-      "body": "Rather than treating formulation as an empirical search problem, BIZON is developing a more intentional framework for particle design. Our work focuses on understanding and shaping the physical properties that influence how LNPs behave.",
+      "eyebrow": "The platform",
+      "title": "A differentiated way to build particles.",
+      "body": "Rather than treating formulation as an empirical search problem, BIZON is developing a framework for designing particles around the properties we want them to have. Our work connects process development, particle architecture, and biological performance.",
       "pillars": [
         {
           "title": "Particle Design",
@@ -37,7 +37,7 @@
       ]
     },
     "science": {
-      "eyebrow": "Scientific Expertise",
+      "eyebrow": "Proof of depth",
       "title": "The full-time team behind BIZON Labs has authored",
       "body": "",
       "metrics": [
@@ -79,7 +79,7 @@
     },
     "team": {
       "eyebrow": "The Herd",
-      "title": "Built by scientists, company builders, and a deep advisory network.",
+      "title": "The people walking into the hard problems.",
       "intro": "BIZON Labs is led by co-founders Peter Sagmeister, Aniket Udepurkar, and Cedric Devos, bringing together experience across formulation, self-assembly, translational science, company formation, and biotechnology operations, with support and mentorship from a broader group of scientific, clinical, and company-building advisors.",
       "members": [
         {
@@ -103,7 +103,7 @@
       ]
     },
     "contact": {
-      "eyebrow": "Contact",
+      "eyebrow": "Invitation",
       "title": "For scientific, partnership, investment, and career conversations.",
       "body": "We welcome conversations with people interested in the future of lipid nanoparticle technology."
     }
