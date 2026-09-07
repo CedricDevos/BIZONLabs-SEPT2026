@@ -460,6 +460,7 @@ p {
   padding: 0.8rem 0.15rem 1.6rem;
   scroll-snap-type: x mandatory;
   scrollbar-width: none;
+  overflow-anchor: none;
 }
 
 .media-library::-webkit-scrollbar {
@@ -702,6 +703,7 @@ p {
   overscroll-behavior-x: contain;
   scroll-snap-type: x mandatory;
   scrollbar-width: none;
+  overflow-anchor: none;
 }
 
 .paper-visual::-webkit-scrollbar {

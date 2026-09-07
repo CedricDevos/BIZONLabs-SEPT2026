@@ -3,6 +3,10 @@ const canvas = document.querySelector("[data-particle-canvas]");
 const progress = document.querySelector("[data-page-progress]");
 const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
 
+if ("scrollRestoration" in window.history) {
+  window.history.scrollRestoration = "manual";
+}
+
 const updateHeader = () => {
   header?.classList.toggle("is-scrolled", window.scrollY > 24);
 };
@@ -55,10 +59,7 @@ const mediaItems = Array.from(document.querySelectorAll("[data-media-item]"));
 const mediaGallery = document.querySelector("[data-media-gallery]");
 const mediaNext = document.querySelector("[data-media-next]");
 const mediaPrev = document.querySelector("[data-media-prev]");
-const paperGallery = document.querySelector("[data-paper-gallery]");
 let activeMedia = 0;
-let mediaTimer = null;
-let paperTimer = null;
 
 const scrollItemInTrack = (track, item, behavior = "smooth") => {
   if (!track || !item) return;
@@ -81,7 +82,7 @@ const syncMedia = (behavior = "smooth") => {
     item.classList.toggle("is-next", isNext);
     item.classList.toggle("is-third", isThird);
     item.querySelectorAll("video").forEach((video) => {
-      if ((isCurrent || isNext || isThird) && !reduceMotion.matches) {
+      if (!reduceMotion.matches) {
         video.play().catch(() => {});
       } else {
         video.pause();
@@ -103,22 +104,10 @@ if (mediaItems.length > 0) {
   syncMedia("auto");
 }
 
-const restartMediaTimer = () => {
-  if (mediaTimer) {
-    window.clearInterval(mediaTimer);
-  }
-  if (mediaItems.length <= 1 || reduceMotion.matches) return;
-  mediaTimer = window.setInterval(() => {
-    activeMedia = (activeMedia + 1) % mediaItems.length;
-    syncMedia();
-  }, 6200);
-};
-
 if (mediaItems.length > 1 && mediaNext) {
   mediaNext.addEventListener("click", () => {
     activeMedia = (activeMedia + 1) % mediaItems.length;
     syncMedia();
-    restartMediaTimer();
   });
 }
 
@@ -126,38 +115,7 @@ if (mediaItems.length > 1 && mediaPrev) {
   mediaPrev.addEventListener("click", () => {
     activeMedia = (activeMedia - 1 + mediaItems.length) % mediaItems.length;
     syncMedia();
-    restartMediaTimer();
   });
-}
-
-restartMediaTimer();
-
-if (mediaGallery) {
-  mediaGallery.addEventListener("pointerenter", () => {
-    if (mediaTimer) {
-      window.clearInterval(mediaTimer);
-    }
-  });
-  mediaGallery.addEventListener("pointerleave", restartMediaTimer);
-}
-
-if (paperGallery && !reduceMotion.matches) {
-  const paperCards = Array.from(paperGallery.querySelectorAll(".paper-card"));
-  let activePaper = 0;
-  const startPaperTimer = () => {
-    if (paperTimer) {
-      window.clearInterval(paperTimer);
-    }
-    paperTimer = window.setInterval(() => {
-      activePaper = (activePaper + 1) % paperCards.length;
-      scrollItemInTrack(paperGallery, paperCards[activePaper]);
-    }, 6800);
-  };
-  if (paperCards.length > 1) {
-    startPaperTimer();
-    paperGallery.addEventListener("pointerenter", () => window.clearInterval(paperTimer));
-    paperGallery.addEventListener("pointerleave", startPaperTimer);
-  }
 }
 
 if (canvas) {
