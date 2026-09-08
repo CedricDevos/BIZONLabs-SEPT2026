@@ -17,6 +17,9 @@
   --page-x: clamp(1.25rem, 5vw, 5.25rem);
   --section-y: clamp(6.25rem, 10vw, 10.5rem);
   --section-y-compact: clamp(4.5rem, 7vw, 7.25rem);
+  --ease-premium: cubic-bezier(0.22, 1, 0.36, 1);
+  --lift-small: translate3d(0, -0.28rem, 0);
+  --lift-media: translate3d(0, -0.55rem, 0) scale(1.025);
 }
 
 @font-face {
@@ -65,6 +68,7 @@
 
 html {
   scroll-behavior: smooth;
+  -webkit-text-size-adjust: 100%;
 }
 
 body {
@@ -134,7 +138,7 @@ img {
   gap: 2rem;
   padding: 1.15rem clamp(1.25rem, 4vw, 4.5rem);
   background: linear-gradient(180deg, rgba(0, 0, 0, 0.62), rgba(0, 0, 0, 0));
-  transition: background 220ms ease, border-color 220ms ease;
+  transition: background 360ms var(--ease-premium), border-color 360ms var(--ease-premium), padding 360ms var(--ease-premium);
 }
 
 .site-header.is-scrolled {
@@ -146,7 +150,7 @@ img {
 .brand-mark img {
   width: clamp(116px, 10vw, 164px);
   height: auto;
-  transition: opacity 220ms ease;
+  transition: opacity 360ms var(--ease-premium);
 }
 
 .brand-mark:hover img {
@@ -184,7 +188,7 @@ nav a::after {
   background: var(--bolt);
   transform: scaleX(0);
   transform-origin: left center;
-  transition: transform 220ms ease;
+  transition: transform 320ms var(--ease-premium);
 }
 
 nav a:hover::after,
@@ -467,7 +471,7 @@ p {
   font-size: 1rem;
   font-weight: 700;
   letter-spacing: 0.08em;
-  transition: background 220ms ease, border-color 220ms ease, color 220ms ease;
+  transition: background 320ms var(--ease-premium), border-color 320ms var(--ease-premium), color 320ms var(--ease-premium), transform 320ms var(--ease-premium);
 }
 
 .media-arrow:hover,
@@ -475,6 +479,7 @@ p {
   background: var(--storm);
   border-color: var(--storm);
   color: var(--white);
+  transform: var(--lift-small);
 }
 
 .media-library {
@@ -508,7 +513,7 @@ p {
   border: 1px solid rgba(28, 0, 89, 0.16);
   box-shadow: 0 20px 54px rgba(32, 20, 68, 0.1);
   scroll-snap-align: start;
-  transition: flex-basis 520ms ease, opacity 420ms ease, filter 420ms ease, transform 420ms ease, box-shadow 420ms ease, border-color 420ms ease;
+  transition: flex-basis 520ms var(--ease-premium), opacity 420ms var(--ease-premium), filter 420ms var(--ease-premium), transform 420ms var(--ease-premium), box-shadow 420ms var(--ease-premium), border-color 420ms var(--ease-premium);
 }
 
 .media-item.is-current {
@@ -542,14 +547,14 @@ p {
 .media-item:hover,
 .media-item:focus-within {
   z-index: 4;
-  transform: translateY(-0.75rem) scale(1.04);
+  transform: var(--lift-media);
   box-shadow: 0 42px 110px rgba(32, 20, 68, 0.21);
   opacity: 1;
 }
 
 .media-item.is-current:hover,
 .media-item.is-current:focus-within {
-  transform: translateY(-0.75rem) scale(1.035);
+  transform: translate3d(0, -0.55rem, 0) scale(1.02);
 }
 
 .media-item.has-video-error {
@@ -591,7 +596,7 @@ p {
   text-transform: uppercase;
   opacity: 0;
   transform: translateY(0.35rem);
-  transition: opacity 320ms ease, transform 320ms ease;
+  transition: opacity 360ms var(--ease-premium), transform 360ms var(--ease-premium);
 }
 
 .media-item.is-current .media-label,
@@ -681,13 +686,13 @@ p {
   padding: clamp(1.35rem, 2.8vw, 2.8rem);
   border-right: 1px solid rgba(255, 255, 255, 0.14);
   border-bottom: 1px solid rgba(255, 255, 255, 0.14);
-  transition: background 240ms ease, transform 240ms ease, border-color 240ms ease;
+  transition: background 340ms var(--ease-premium), transform 340ms var(--ease-premium), border-color 340ms var(--ease-premium);
 }
 
 .pillar:hover {
   background: rgba(255, 255, 255, 0.04);
   border-color: rgba(124, 112, 235, 0.38);
-  transform: translateY(-2px);
+  transform: var(--lift-small);
 }
 
 .pillar-number {
@@ -773,7 +778,7 @@ p {
   flex: 0 0 min(78vw, 340px);
   margin: 0;
   scroll-snap-align: start;
-  transition: transform 420ms ease, filter 420ms ease;
+  transition: transform 420ms var(--ease-premium), filter 420ms var(--ease-premium), opacity 420ms var(--ease-premium);
 }
 
 .paper-card img {
@@ -791,7 +796,7 @@ p {
 .paper-card:hover,
 .paper-card:focus-within {
   z-index: 3;
-  transform: translateY(-0.4rem) scale(1.045);
+  transform: var(--lift-media);
 }
 
 .partner-band {
@@ -866,12 +871,12 @@ p {
   min-height: 230px;
   background: #0b0b0d;
   padding: clamp(1.2rem, 2.8vw, 2.15rem);
-  transition: background 220ms ease, transform 220ms ease;
+  transition: background 340ms var(--ease-premium), transform 340ms var(--ease-premium);
 }
 
 .team-card:hover {
   background: #101015;
-  transform: translateY(-2px);
+  transform: var(--lift-small);
 }
 
 .portrait-slot {
@@ -902,7 +907,7 @@ p {
   line-height: 1;
   text-decoration: none;
   text-transform: uppercase;
-  transition: color 180ms ease, opacity 180ms ease;
+  transition: color 300ms var(--ease-premium), opacity 300ms var(--ease-premium), transform 300ms var(--ease-premium);
 }
 
 .linkedin-link span {
@@ -921,6 +926,7 @@ p {
 .linkedin-link:hover,
 .linkedin-link:focus-visible {
   color: var(--white);
+  transform: translate3d(0.18rem, 0, 0);
 }
 
 .contact-section {
@@ -947,7 +953,7 @@ p {
   line-height: 1.12;
   text-decoration-color: var(--bolt);
   text-underline-offset: 0.16em;
-  transition: color 220ms ease, text-decoration-color 220ms ease;
+  transition: color 320ms var(--ease-premium), text-decoration-color 320ms var(--ease-premium);
 }
 
 .email-link:hover,
@@ -1062,8 +1068,8 @@ p {
 
 [data-reveal] {
   opacity: 0;
-  transform: translateY(28px);
-  transition: opacity 760ms ease, transform 760ms ease;
+  transform: translate3d(0, 24px, 0);
+  transition: opacity 760ms var(--ease-premium), transform 760ms var(--ease-premium);
 }
 
 [data-reveal].is-visible {
@@ -1086,10 +1092,17 @@ p {
 }
 
 @media (max-width: 980px) {
+  :root {
+    --page-x: clamp(1.1rem, 4.8vw, 2.25rem);
+    --section-y: clamp(4.75rem, 10vw, 7rem);
+    --section-y-compact: clamp(3.6rem, 8vw, 5.4rem);
+  }
+
   .site-header {
     align-items: flex-start;
     flex-direction: column;
     gap: 1rem;
+    padding-inline: var(--page-x);
   }
 
   nav {
@@ -1111,6 +1124,10 @@ p {
 
   .media-library {
     gap: 0.85rem;
+    margin-inline: calc(var(--page-x) * -1);
+    padding-inline: var(--page-x);
+    scroll-padding-inline: var(--page-x);
+    mask-image: none;
   }
 
   .media-item,
@@ -1128,27 +1145,120 @@ p {
 }
 
 @media (max-width: 640px) {
+  :root {
+    --type-largest: clamp(1.18rem, 5.2vw, 1.48rem);
+    --type-body: clamp(1rem, 4.1vw, 1.08rem);
+    --page-x: clamp(1rem, 5.4vw, 1.45rem);
+    --section-y: clamp(4rem, 13vw, 5.8rem);
+    --section-y-compact: clamp(3.1rem, 10vw, 4.4rem);
+  }
+
+  body {
+    min-width: 320px;
+  }
+
   nav {
     display: none;
   }
 
   .hero {
-    min-height: 100svh;
+    min-height: 92svh;
+    padding-top: 6.25rem;
+    padding-bottom: 3.25rem;
+  }
+
+  .hero-film {
+    inset: 6.8rem var(--page-x) 5.6rem;
+  }
+
+  .hero-brand-stage {
+    gap: 0.8rem;
+  }
+
+  .hero-brand-stage img {
+    width: clamp(72px, 24vw, 108px);
+  }
+
+  .hero-brand-stage span {
+    font-size: clamp(0.95rem, 4.9vw, 1.25rem);
+    line-height: 1.18;
+  }
+
+  .hero-content {
+    max-width: 100%;
+  }
+
+  .hero-kicker,
+  h1 {
+    max-width: 18rem;
+  }
+
+  .light-section,
+  .statement-section,
+  .media-band,
+  .approach-section,
+  .partner-band,
+  .team-section,
+  .contact-section {
+    padding-inline: var(--page-x);
+  }
+
+  .intro-grid,
+  .media-band,
+  .partner-band {
+    gap: 2rem;
+  }
+
+  .statement-section p {
+    line-height: 1.28;
   }
 
   .media-library {
     overflow-x: auto;
-    padding-top: 1.3rem;
+    padding-top: 1.1rem;
+    padding-bottom: 1.8rem;
   }
 
-  .media-item,
+  .media-item {
+    flex-basis: 64vw;
+    max-width: 245px;
+  }
+
   .media-item.is-current {
-    flex-basis: 78%;
+    flex-basis: 76vw;
+    max-width: 305px;
+  }
+
+  .media-label {
+    left: 0.75rem;
+    bottom: 0.75rem;
+    font-size: 0.62rem;
   }
 
   .media-item:nth-child(3n),
   .media-item:nth-child(3n + 2) {
     transform: none;
+  }
+
+  .paper-visual {
+    width: auto;
+    max-width: none;
+    margin-inline: calc(var(--page-x) * -1);
+    padding-inline: var(--page-x);
+    scroll-padding-inline: var(--page-x);
+  }
+
+  .paper-card {
+    flex-basis: min(78vw, 280px);
+  }
+
+  .science-metrics {
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+  }
+
+  .team-photo {
+    min-height: clamp(250px, 76vw, 390px);
   }
 
   .pillar-grid,
@@ -1164,6 +1274,34 @@ p {
   .site-footer {
     align-items: flex-start;
     grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+
+  .footer-legal {
+    padding-left: 0;
+  }
+
+  .email-link {
+    overflow-wrap: anywhere;
+  }
+}
+
+@media (hover: none) {
+  .media-arrow:hover,
+  .media-item:hover,
+  .media-item.is-current:hover,
+  .paper-card:hover,
+  .pillar:hover,
+  .team-card:hover,
+  .linkedin-link:hover {
+    transform: none;
+  }
+
+  .media-item:focus-within,
+  .paper-card:focus-within,
+  .media-arrow:focus-visible,
+  .linkedin-link:focus-visible {
+    transform: var(--lift-small);
   }
 }
 
