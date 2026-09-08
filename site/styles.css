@@ -526,15 +526,13 @@ p {
   opacity: 1;
   background: #0b0911;
   border: 1px solid rgba(28, 0, 89, 0.16);
-  box-shadow: 0 20px 54px rgba(32, 20, 68, 0.1);
   scroll-snap-align: start;
-  transition: flex-basis var(--motion-medium) var(--ease-premium), opacity var(--motion-medium) var(--ease-premium), filter var(--motion-medium) var(--ease-premium), transform var(--motion-medium) var(--ease-premium), box-shadow var(--motion-medium) var(--ease-premium), border-color var(--motion-medium) var(--ease-premium);
+  transition: flex-basis var(--motion-medium) var(--ease-premium), opacity var(--motion-medium) var(--ease-premium), filter var(--motion-medium) var(--ease-premium), transform var(--motion-medium) var(--ease-premium), border-color var(--motion-medium) var(--ease-premium);
 }
 
 .media-item.is-current {
   flex-basis: clamp(260px, 31vw, 455px);
   border-color: rgba(28, 0, 89, 0.28);
-  box-shadow: 0 38px 105px rgba(32, 20, 68, 0.18);
 }
 
 .media-item::after {
@@ -563,7 +561,6 @@ p {
 .media-item:focus-within {
   z-index: 4;
   transform: var(--lift-media);
-  box-shadow: 0 34px 92px rgba(32, 20, 68, 0.18);
   opacity: 0.96;
 }
 
