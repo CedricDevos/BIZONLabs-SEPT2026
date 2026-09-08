@@ -366,16 +366,6 @@ p {
   position: relative;
 }
 
-.intro-grid::before {
-  content: "";
-  position: absolute;
-  left: clamp(1.25rem, 5vw, 5.25rem);
-  top: 0;
-  width: 1px;
-  height: 3.4rem;
-  background: rgba(28, 0, 89, 0.2);
-}
-
 .section-copy {
   color: #34313a;
   padding-top: 0.45rem;
