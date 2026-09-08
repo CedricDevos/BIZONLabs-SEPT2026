@@ -14,6 +14,7 @@ FONT_DIR = ROOT / "assets" / "fonts"
 ICON = ROOT / "assets" / "logos" / "bison-icon-white.svg"
 WIDTH = 1200
 HEIGHT = 630
+LEFT = 96
 
 
 def font(name: str, size: int) -> ImageFont.FreeTypeFont:
@@ -38,12 +39,12 @@ def load_bison_icon(size: int) -> Image.Image:
 
 
 def draw_wordmark(draw: ImageDraw.ImageDraw) -> None:
-    mark_font = font("ZalandoSansExpanded-Bold.ttf", 94)
-    lab_font = font("ZalandoSans-Medium.ttf", 38)
-    x = 242
-    y = 186
+    mark_font = font("ZalandoSansExpanded-Bold.ttf", 92)
+    lab_font = font("ZalandoSans-Medium.ttf", 37)
+    x = 236
+    y = 176
     draw.text((x, y), "BIZON", font=mark_font, fill=(255, 255, 255, 242))
-    draw.text((x + 8, y + 104), "LABS", font=lab_font, fill=(255, 255, 255, 170))
+    draw.text((x + 8, y + 102), "LABS", font=lab_font, fill=(255, 255, 255, 166))
 
 
 def main() -> None:
@@ -61,18 +62,17 @@ def main() -> None:
         opacity = 12 if x % 172 == 0 else 7
         draw.line([(x, 0), (x + 235, HEIGHT)], fill=(255, 255, 255, opacity), width=1)
 
-    draw.rectangle((72, 72, WIDTH - 72, HEIGHT - 72), outline=(255, 255, 255, 30), width=1)
+    draw.rectangle((72, 72, WIDTH - 72, HEIGHT - 72), outline=(255, 255, 255, 28), width=1)
 
-    icon = load_bison_icon(118)
-    overlay.alpha_composite(icon, (96, 214))
+    icon = load_bison_icon(112)
+    overlay.alpha_composite(icon, (LEFT, 210))
     draw_wordmark(draw)
 
-    line_font = font("ZalandoSans-Medium.ttf", 56)
-    text = "Next Generation LNPs"
-    bbox = draw.textbbox((0, 0), text, font=line_font)
-    draw.text((WIDTH - 96 - (bbox[2] - bbox[0]), 386), text, font=line_font, fill=(255, 255, 255, 214))
+    line_font = font("ZalandoSans-Regular.ttf", 34)
+    text = "next-generation lipid nanoparticles."
+    draw.text((LEFT, 394), text, font=line_font, fill=(255, 255, 255, 166))
 
-    draw.line((96, 492, WIDTH - 96, 492), fill=(124, 112, 235, 84), width=2)
+    draw.line((LEFT, 486, WIDTH - LEFT, 486), fill=(124, 112, 235, 68), width=2)
 
     composed = Image.alpha_composite(image.convert("RGBA"), overlay)
     composed.convert("RGB").save(OUT, quality=94)
