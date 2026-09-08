@@ -35,7 +35,7 @@ document.querySelectorAll("nav a[href^='#']").forEach((link) => {
   observer.observe(target);
 });
 
-document.querySelectorAll("[data-reveal], .pillar, .team-card, .science-metric, .paper-card").forEach((element) => {
+document.querySelectorAll("[data-reveal], .pillar, .team-card, .science-metric").forEach((element) => {
   element.setAttribute("data-reveal", "");
 });
 
@@ -117,6 +117,54 @@ if (mediaItems.length > 1 && mediaPrev) {
     syncMedia();
   });
 }
+
+const paperGallery = document.querySelector("[data-paper-gallery]");
+const paperItems = Array.from(document.querySelectorAll(".paper-card"));
+let activePaper = 0;
+let paperScrollTimer = null;
+
+const syncPapers = () => {
+  paperItems.forEach((item, index) => {
+    const offset = Math.abs(index - activePaper);
+    item.classList.toggle("is-current", index === activePaper);
+    item.classList.toggle("is-adjacent", offset === 1);
+  });
+};
+
+const updateActivePaperFromScroll = () => {
+  if (!paperGallery || paperItems.length === 0) return;
+  const galleryCenter = paperGallery.scrollLeft + paperGallery.clientWidth / 2;
+  activePaper = paperItems.reduce((closestIndex, item, index) => {
+    const itemCenter = item.offsetLeft - paperGallery.offsetLeft + item.offsetWidth / 2;
+    const closest = paperItems[closestIndex];
+    const closestCenter = closest.offsetLeft - paperGallery.offsetLeft + closest.offsetWidth / 2;
+    return Math.abs(itemCenter - galleryCenter) < Math.abs(closestCenter - galleryCenter)
+      ? index
+      : closestIndex;
+  }, activePaper);
+  syncPapers();
+};
+
+paperItems.forEach((item, index) => {
+  item.addEventListener("click", () => {
+    activePaper = index;
+    syncPapers();
+    scrollItemInTrack(paperGallery, item);
+  });
+});
+
+if (paperItems.length > 0) {
+  syncPapers();
+}
+
+paperGallery?.addEventListener(
+  "scroll",
+  () => {
+    window.clearTimeout(paperScrollTimer);
+    paperScrollTimer = window.setTimeout(updateActivePaperFromScroll, 110);
+  },
+  { passive: true }
+);
 
 if (canvas) {
   const context = canvas.getContext("2d");

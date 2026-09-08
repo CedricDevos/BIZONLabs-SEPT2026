@@ -807,16 +807,24 @@ p {
 }
 
 .paper-card {
-  flex: 0 0 min(64vw, 255px);
+  flex: 0 0 min(58vw, 220px);
   margin: 0;
   scroll-snap-align: start;
-  opacity: 0.66;
-  transition: transform var(--motion-medium) var(--ease-premium), filter var(--motion-medium) var(--ease-premium), opacity var(--motion-medium) var(--ease-premium);
+  opacity: 0.55;
+  filter: saturate(0.82) brightness(0.96);
+  cursor: pointer;
+  transition: flex-basis var(--motion-medium) var(--ease-premium), transform var(--motion-medium) var(--ease-premium), filter var(--motion-medium) var(--ease-premium), opacity var(--motion-medium) var(--ease-premium);
 }
 
-.paper-card:first-child {
+.paper-card.is-current {
   flex-basis: min(72vw, 365px);
   opacity: 1;
+  filter: none;
+}
+
+.paper-card.is-adjacent {
+  opacity: 0.72;
+  filter: saturate(0.9) brightness(0.98);
 }
 
 .paper-card img {
@@ -1310,7 +1318,7 @@ p {
     flex-basis: min(68vw, 235px);
   }
 
-  .paper-card:first-child {
+  .paper-card.is-current {
     flex-basis: min(78vw, 285px);
   }
 
