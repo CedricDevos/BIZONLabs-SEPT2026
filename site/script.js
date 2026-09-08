@@ -35,7 +35,7 @@ document.querySelectorAll("nav a[href^='#']").forEach((link) => {
   observer.observe(target);
 });
 
-document.querySelectorAll("[data-reveal], .pillar, .team-card").forEach((element) => {
+document.querySelectorAll("[data-reveal], .pillar, .team-card, .science-metric, .paper-card").forEach((element) => {
   element.setAttribute("data-reveal", "");
 });
 
@@ -48,7 +48,7 @@ const revealObserver = new IntersectionObserver(
       }
     });
   },
-  { threshold: 0.16, rootMargin: "0px 0px -8% 0px" }
+  { threshold: 0.12, rootMargin: "0px 0px -6% 0px" }
 );
 
 document.querySelectorAll("[data-reveal]").forEach((element) => {
