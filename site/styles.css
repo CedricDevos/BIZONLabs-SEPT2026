@@ -14,6 +14,9 @@
   --font-display: "Zalando Sans Expanded", "Zalando Sans", "Inter", "Helvetica Neue", Arial, sans-serif;
   --type-largest: clamp(1.25rem, 1.75vw, 1.8rem);
   --type-body: clamp(1rem, 1.15vw, 1.12rem);
+  --page-x: clamp(1.25rem, 5vw, 5.25rem);
+  --section-y: clamp(6.25rem, 10vw, 10.5rem);
+  --section-y-compact: clamp(4.5rem, 7vw, 7.25rem);
 }
 
 @font-face {
@@ -71,6 +74,12 @@ body {
   font-family: var(--font);
   letter-spacing: 0;
   overflow-x: hidden;
+}
+
+main > section {
+  position: relative;
+  isolation: isolate;
+  scroll-margin-top: 5rem;
 }
 
 body::selection {
@@ -191,7 +200,7 @@ nav a.is-active::after {
   grid-template-rows: 1fr auto;
   align-items: center;
   overflow: hidden;
-  padding: 7rem clamp(1.25rem, 5vw, 5.25rem) 2.2rem;
+  padding: 7rem var(--page-x) clamp(3.25rem, 6vw, 5.75rem);
   background:
     radial-gradient(circle at 74% 34%, rgba(124, 112, 235, 0.1), transparent 34rem),
     radial-gradient(circle at 22% 78%, rgba(28, 0, 89, 0.32), transparent 30rem),
@@ -232,7 +241,7 @@ nav a.is-active::after {
 
 .hero-film {
   position: absolute;
-  inset: 7.5rem clamp(1.25rem, 5vw, 5.25rem) 7.5rem;
+  inset: 7.5rem var(--page-x) 7.5rem;
   border: 1px solid rgba(255, 255, 255, 0.055);
   background:
     radial-gradient(circle at 28% 42%, rgba(124, 112, 235, 0.13), transparent 19rem),
@@ -356,7 +365,11 @@ p {
 .light-section {
   background: var(--soft);
   color: var(--ink);
-  padding: clamp(5rem, 8vw, 8rem) clamp(1.25rem, 5vw, 5.25rem);
+  padding: var(--section-y) var(--page-x);
+}
+
+.intro-grid {
+  padding-top: clamp(1rem, 3vw, 2.8rem);
 }
 
 .intro-grid {
@@ -385,11 +398,13 @@ p {
 }
 
 .statement-section {
-  padding: clamp(4.75rem, 8vw, 7.5rem) clamp(1.25rem, 5vw, 5.25rem);
+  padding: var(--section-y-compact) var(--page-x);
   background:
-    linear-gradient(90deg, rgba(124, 112, 235, 0.08), transparent 36%),
+    linear-gradient(90deg, rgba(124, 112, 235, 0.07), transparent 34%),
     #050505;
   color: var(--white);
+  border-top: 1px solid rgba(255, 255, 255, 0.06);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
 }
 
 .statement-section .eyebrow {
@@ -413,9 +428,13 @@ p {
   grid-template-columns: minmax(0, 0.72fr) minmax(320px, 1.28fr);
   gap: clamp(2.5rem, 8vw, 8rem);
   align-items: center;
-  background: #f8f7f3;
+  min-height: clamp(660px, 82svh, 900px);
+  background:
+    linear-gradient(180deg, #f8f7f3 0%, #f5f4ef 58%, #efeee8 100%);
   color: var(--ink);
-  padding: clamp(4rem, 7vw, 6.5rem) clamp(1.25rem, 5vw, 5.25rem);
+  padding: var(--section-y) var(--page-x);
+  border-top: 1px solid rgba(8, 7, 13, 0.06);
+  border-bottom: 1px solid rgba(8, 7, 13, 0.08);
 }
 
 .media-copy h2 {
@@ -430,7 +449,7 @@ p {
 .media-controls {
   display: flex;
   gap: 0.6rem;
-  margin-top: 1.4rem;
+  margin-top: clamp(1.6rem, 4vw, 3.1rem);
 }
 
 .media-arrow {
@@ -631,7 +650,9 @@ p {
   background:
     linear-gradient(145deg, rgba(0, 0, 0, 0.8), rgba(28, 0, 89, 0.86)),
     var(--storm-dark);
-  padding: clamp(5rem, 9vw, 8.5rem) clamp(1.25rem, 5vw, 5.25rem);
+  padding: var(--section-y) var(--page-x);
+  border-top: 1px solid rgba(255, 255, 255, 0.07);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.07);
 }
 
 .section-heading {
@@ -685,7 +706,7 @@ p {
 
 .science-section {
   background:
-    linear-gradient(180deg, #f8f7f3, #f1f0ec);
+    linear-gradient(180deg, #f6f5f0 0%, #fbfaf7 44%, #f1f0ec 100%);
   color: var(--ink);
 }
 
@@ -777,9 +798,11 @@ p {
   display: grid;
   grid-template-columns: minmax(0, 0.9fr) minmax(300px, 0.7fr);
   gap: clamp(2rem, 7vw, 7rem);
-  padding: clamp(4.5rem, 8vw, 7.5rem) clamp(1.25rem, 5vw, 5.25rem);
+  padding: var(--section-y-compact) var(--page-x);
   background: var(--white);
   color: var(--ink);
+  border-top: 1px solid rgba(8, 7, 13, 0.08);
+  border-bottom: 1px solid rgba(8, 7, 13, 0.08);
 }
 
 .partner-band .eyebrow {
@@ -801,6 +824,8 @@ p {
     radial-gradient(circle at 62% 14%, rgba(124, 112, 235, 0.12), transparent 30rem),
     #050505;
   color: var(--white);
+  padding-top: var(--section-y);
+  padding-bottom: 0;
 }
 
 .team-section .eyebrow {
@@ -899,7 +924,7 @@ p {
 }
 
 .contact-section {
-  padding: clamp(5.5rem, 10vw, 9rem) clamp(1.25rem, 5vw, 5.25rem);
+  padding: var(--section-y) var(--page-x);
   background:
     radial-gradient(circle at 70% 10%, rgba(124, 112, 235, 0.18), transparent 28rem),
     linear-gradient(145deg, #000000, #0b0025),
@@ -936,7 +961,7 @@ p {
   grid-template-columns: minmax(150px, 0.22fr) minmax(0, 0.78fr);
   align-items: end;
   gap: clamp(2rem, 8vw, 8rem);
-  padding: clamp(2rem, 4vw, 3.25rem) clamp(1.25rem, 5vw, 5.25rem);
+  padding: clamp(2rem, 4vw, 3.25rem) var(--page-x);
   border-top: 1px solid rgba(255, 255, 255, 0.08);
   background: #030303;
   color: rgba(255, 255, 255, 0.38);
