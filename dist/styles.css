@@ -831,11 +831,6 @@ p {
   object-position: top;
   border: 1px solid rgba(8, 7, 13, 0.13);
   background: var(--white);
-  box-shadow: 0 26px 76px rgba(32, 20, 68, 0.13);
-}
-
-.paper-card:first-child img {
-  box-shadow: 0 34px 92px rgba(32, 20, 68, 0.16);
 }
 
 .paper-card:hover,
