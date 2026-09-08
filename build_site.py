@@ -85,9 +85,27 @@ def render_origin_note(origin: str) -> str:
 
 
 def render_media_library() -> str:
+    curated_order = {
+        "0001.jpeg": 0,
+        "0004.jpeg": 1,
+        "0007.mov": 2,
+        "0008.mov": 3,
+        "00012.jpeg": 4,
+        "0003.jpg": 5,
+        "0002.jpg": 6,
+    }
+    media_labels = [
+        "Particle architecture",
+        "Process development",
+        "Formulation work",
+        "Translation",
+    ]
     files = [
         path
-        for path in sorted(MEDIA_LIBRARY.iterdir(), key=lambda item: item.name.lower())
+        for path in sorted(
+            MEDIA_LIBRARY.iterdir(),
+            key=lambda item: (curated_order.get(item.name, 100), item.name.lower()),
+        )
         if path.is_file() and path.suffix.lower() in IMAGE_TYPES | VIDEO_TYPES
     ]
     items = []
@@ -113,6 +131,7 @@ def render_media_library() -> str:
             f"""
             <figure class="media-item{active_class}" data-media-item>
               {media}
+              <figcaption class="media-label">{media_labels[index % len(media_labels)]}</figcaption>
             </figure>
             """.strip()
         )
@@ -221,7 +240,7 @@ def render_profile_links(profiles: list[dict]) -> str:
 def copy_tree(source: Path, destination: Path) -> None:
     if destination.exists():
         shutil.rmtree(destination)
-    shutil.copytree(source, destination)
+    shutil.copytree(source, destination, copy_function=shutil.copy)
 
 
 def remove_unpublished_media() -> None:
