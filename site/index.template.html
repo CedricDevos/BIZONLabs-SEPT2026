@@ -114,6 +114,9 @@
             <div class="science-metrics" aria-label="Research impact">
               $science_metrics
             </div>
+            <div class="science-map" aria-label="Connected scientific expertise">
+              $science_areas
+            </div>
           </div>
           <div class="paper-visual" data-paper-gallery aria-label="Selected publication preview">
             $paper_previews
@@ -145,6 +148,16 @@
         </div>
       </section>
     </main>
+
+    <div class="paper-modal" data-paper-modal hidden>
+      <button class="paper-modal-backdrop" type="button" data-paper-close aria-label="Close paper preview"></button>
+      <div class="paper-modal-panel" role="dialog" aria-modal="true" aria-labelledby="paper-modal-title">
+        <button class="paper-modal-close" type="button" data-paper-close aria-label="Close paper preview">Close</button>
+        <p class="eyebrow">Selected work</p>
+        <img data-paper-modal-image src="" alt="" />
+        <p id="paper-modal-title" class="paper-modal-title" data-paper-modal-title></p>
+      </div>
+    </div>
 
     <footer class="site-footer">
       <div class="footer-brand">

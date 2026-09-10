@@ -147,23 +147,27 @@ def render_paper_library() -> str:
     if not files:
         return """
         <figure class="paper-card">
-          <img src="assets/images/acs-nano-paper.png" alt="ACS Nano publication preview" loading="lazy" />
+          <button class="paper-button" type="button" data-paper-button data-paper-src="assets/images/acs-nano-paper.png" data-paper-title="Selected publication preview">
+            <img src="assets/images/acs-nano-paper.png" alt="ACS Nano publication preview" loading="lazy" />
+          </button>
         </figure>
         """.strip()
 
     make_paper_previews(files)
     items = []
     for path in files:
-        source = "assets/papers/" + quote(path.name)
         preview = PAPER_PREVIEWS / f"{path.name}.png"
         title = paper_title(path)
         preview_src = "assets/images/acs-nano-paper.png"
         if preview.exists():
             preview_src = "assets/papers/previews/" + quote(preview.name)
+        escaped_title = escape(title)
         items.append(
             f"""
             <figure class="paper-card">
-              <img src="{preview_src}" alt="{escape(title)} first page" loading="lazy" />
+              <button class="paper-button" type="button" data-paper-button data-paper-src="{preview_src}" data-paper-title="{escaped_title}">
+                <img src="{preview_src}" alt="{escaped_title} first page" loading="lazy" />
+              </button>
             </figure>
             """.strip()
         )
@@ -192,7 +196,15 @@ def paper_title(path: Path) -> str:
 
 
 def render_science_areas(areas: list[str]) -> str:
-    return "\n".join(f"<li>{escape(area)}</li>" for area in areas)
+    return "\n".join(
+        f"""
+        <div class="science-node">
+          <span>{index:02d}</span>
+          <p>{escape(area)}</p>
+        </div>
+        """.strip()
+        for index, area in enumerate(areas, start=1)
+    )
 
 
 def render_publications(publications: list[str]) -> str:

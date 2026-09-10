@@ -120,6 +120,10 @@ if (mediaItems.length > 1 && mediaPrev) {
 
 const paperGallery = document.querySelector("[data-paper-gallery]");
 const paperItems = Array.from(document.querySelectorAll(".paper-card"));
+const paperModal = document.querySelector("[data-paper-modal]");
+const paperModalImage = document.querySelector("[data-paper-modal-image]");
+const paperModalTitle = document.querySelector("[data-paper-modal-title]");
+const paperModalCloseButtons = document.querySelectorAll("[data-paper-close]");
 let activePaper = 0;
 let paperScrollTimer = null;
 
@@ -145,11 +149,32 @@ const updateActivePaperFromScroll = () => {
   syncPapers();
 };
 
+const openPaperModal = (item) => {
+  const button = item.querySelector("[data-paper-button]");
+  if (!button || !paperModal || !paperModalImage || !paperModalTitle) return;
+  const source = button.dataset.paperSrc;
+  const title = button.dataset.paperTitle || "Selected publication";
+  if (!source) return;
+  paperModalImage.src = source;
+  paperModalImage.alt = `${title} first page`;
+  paperModalTitle.textContent = title;
+  paperModal.hidden = false;
+  document.body.classList.add("has-open-modal");
+};
+
+const closePaperModal = () => {
+  if (!paperModal || !paperModalImage) return;
+  paperModal.hidden = true;
+  paperModalImage.removeAttribute("src");
+  document.body.classList.remove("has-open-modal");
+};
+
 paperItems.forEach((item, index) => {
   item.addEventListener("click", () => {
     activePaper = index;
     syncPapers();
     scrollItemInTrack(paperGallery, item);
+    openPaperModal(item);
   });
 });
 
@@ -165,6 +190,16 @@ paperGallery?.addEventListener(
   },
   { passive: true }
 );
+
+paperModalCloseButtons.forEach((button) => {
+  button.addEventListener("click", closePaperModal);
+});
+
+document.addEventListener("keydown", (event) => {
+  if (event.key === "Escape" && paperModal && !paperModal.hidden) {
+    closePaperModal();
+  }
+});
 
 if (canvas) {
   const context = canvas.getContext("2d");
