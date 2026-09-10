@@ -272,14 +272,6 @@ SCIENCE_CATEGORIES = [
     },
 ]
 
-SCIENCE_PAPER_POSITIONS = {
-    "modeling": [("21%", "5%"), ("26%", "18%"), ("13%", "32%"), ("32%", "35%"), ("18%", "46%")],
-    "process": [("61%", "5%"), ("68%", "23%"), ("56%", "35%"), ("72%", "39%")],
-    "architecture": [("61%", "71%"), ("72%", "60%"), ("53%", "65%")],
-    "translation": [("20%", "72%"), ("31%", "61%"), ("11%", "60%")],
-}
-
-
 def science_category_for(title: str) -> str:
     normalized = title.lower()
     for category in SCIENCE_CATEGORIES:
@@ -323,20 +315,16 @@ def render_science_network() -> str:
         )
 
     if files:
-        category_counts = {category["id"]: 0 for category in SCIENCE_CATEGORIES}
         for path in files:
             metadata = paper_metadata(path)
             title = metadata["title"]
             category_id = science_category_for(title)
-            positions = SCIENCE_PAPER_POSITIONS[category_id]
-            position = positions[category_counts[category_id] % len(positions)]
-            category_counts[category_id] += 1
             visible = " is-visible" if category_id == SCIENCE_CATEGORIES[0]["id"] else ""
             escaped_title = escape(title)
             escaped_journal = escape(metadata["journal"])
             papers.append(
                 f"""
-                <button class="science-paper{visible}" type="button" style="--paper-x: {position[0]}; --paper-y: {position[1]};" data-science-paper data-category="{category_id}" data-paper-src="{paper_preview_source(path)}" data-paper-title="{escaped_title}" data-paper-journal="{escaped_journal}">
+                <button class="science-paper{visible}" type="button" data-science-paper data-category="{category_id}" data-paper-src="{paper_preview_source(path)}" data-paper-title="{escaped_title}" data-paper-journal="{escaped_journal}">
                   <span>{escaped_journal}</span>
                   <strong>{escaped_title}</strong>
                 </button>
@@ -377,6 +365,7 @@ def render_science_network() -> str:
           <p>{escape(SCIENCE_CATEGORIES[0]["body"])}</p>
         </div>
         <div class="science-paper-cluster" aria-live="polite">
+          <p class="science-paper-panel-label">Selected papers</p>
           {"".join(papers)}
         </div>
       </div>

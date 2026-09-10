@@ -1036,18 +1036,22 @@ p {
 
 .science-web {
   position: relative;
+  display: grid;
+  grid-template-columns: minmax(0, 0.92fr) minmax(280px, 0.5fr);
+  gap: clamp(1.4rem, 3vw, 2.4rem);
   min-height: min(68vh, 560px);
+  padding: clamp(1.1rem, 2.2vw, 1.6rem);
   border: 1px solid rgba(8, 7, 13, 0.1);
   overflow: hidden;
   background:
-    radial-gradient(circle at 50% 50%, rgba(124, 112, 235, 0.08), transparent 34%),
+    radial-gradient(circle at 31% 50%, rgba(124, 112, 235, 0.08), transparent 30%),
     rgba(255, 255, 255, 0.52);
 }
 
 .science-web-lines {
   position: absolute;
-  inset: 0;
-  width: 100%;
+  inset: clamp(1.1rem, 2.2vw, 1.6rem) auto clamp(1.1rem, 2.2vw, 1.6rem) clamp(1.1rem, 2.2vw, 1.6rem);
+  width: min(62%, 660px);
   height: 100%;
   overflow: visible;
   pointer-events: none;
@@ -1062,8 +1066,13 @@ p {
   vector-effect: non-scaling-stroke;
 }
 
+.web-ring {
+  animation: webBreathe 7s ease-in-out infinite;
+}
+
 .web-ring-inner {
   stroke: rgba(28, 0, 89, 0.1);
+  animation-delay: 1.2s;
 }
 
 .web-path,
@@ -1094,7 +1103,7 @@ p {
 .science-hub {
   position: absolute;
   z-index: 2;
-  left: 50%;
+  left: calc(31% + clamp(0rem, 1vw, 0.4rem));
   top: 50%;
   width: clamp(145px, 18vw, 190px);
   min-height: clamp(145px, 18vw, 190px);
@@ -1163,31 +1172,31 @@ p {
 }
 
 .science-orbit-modeling {
-  left: 9%;
-  top: 10%;
+  left: 7%;
+  top: 12%;
 }
 
 .science-orbit-process {
-  right: 7%;
-  top: 14%;
+  left: 44%;
+  top: 13%;
 }
 
 .science-orbit-architecture {
-  right: 5%;
-  bottom: 12%;
+  left: 44%;
+  bottom: 17%;
 }
 
 .science-orbit-translation {
-  left: 6%;
-  bottom: 12%;
+  left: 7%;
+  bottom: 17%;
 }
 
 .science-category-note {
   position: absolute;
   z-index: 2;
-  left: 50%;
-  bottom: clamp(1rem, 2.4vw, 1.7rem);
-  width: min(38vw, 360px);
+  left: 31%;
+  bottom: clamp(1rem, 2.4vw, 1.5rem);
+  width: min(29vw, 330px);
   padding: 0.95rem 1rem;
   border: 1px solid rgba(8, 7, 13, 0.1);
   background: rgba(248, 247, 243, 0.82);
@@ -1202,34 +1211,58 @@ p {
 }
 
 .science-paper-cluster {
-  position: absolute;
-  inset: 0;
+  position: relative;
   z-index: 4;
-  pointer-events: none;
+  grid-column: 2;
+  align-self: stretch;
+  display: grid;
+  align-content: center;
+  gap: 0.65rem;
+  max-height: 100%;
+  padding-left: clamp(0.4rem, 1vw, 1rem);
+  border-left: 1px solid rgba(8, 7, 13, 0.1);
+  overflow: auto;
+}
+
+.science-paper-panel-label {
+  margin: 0 0 0.3rem;
+  color: var(--muted);
+  font-size: 0.72rem;
+  font-weight: 800;
+  text-transform: uppercase;
 }
 
 .science-paper {
   display: none;
-  position: absolute;
-  left: var(--paper-x);
-  top: var(--paper-y);
-  width: min(25vw, 250px);
-  padding: 0.75rem 0.8rem;
-  border: 1px solid rgba(8, 7, 13, 0.11);
-  background: rgba(255, 255, 255, 0.82);
+  width: 100%;
+  padding: 0.75rem 0;
+  border: 0;
+  border-top: 1px solid rgba(8, 7, 13, 0.12);
+  background: transparent;
   color: #423f47;
   font: inherit;
   text-align: left;
   cursor: pointer;
   opacity: 0;
   transform: translateY(12px) scale(0.96);
-  pointer-events: auto;
-  box-shadow: 0 18px 50px rgba(28, 0, 89, 0.07);
+  box-shadow: none;
 }
 
 .science-paper.is-visible {
   display: block;
   animation: sciencePaperReveal 420ms var(--ease-premium) forwards;
+}
+
+.science-paper.is-visible:nth-of-type(3) {
+  animation-delay: 55ms;
+}
+
+.science-paper.is-visible:nth-of-type(4) {
+  animation-delay: 110ms;
+}
+
+.science-paper.is-visible:nth-of-type(5) {
+  animation-delay: 165ms;
 }
 
 .science-paper strong {
@@ -1248,6 +1281,17 @@ p {
   to {
     opacity: 1;
     transform: translateY(0) scale(1);
+  }
+}
+
+@keyframes webBreathe {
+  0%,
+  100% {
+    opacity: 0.65;
+  }
+
+  50% {
+    opacity: 1;
   }
 }
 
@@ -1806,16 +1850,20 @@ p {
   }
 
   .science-web {
+    display: block;
     min-height: 760px;
     overflow: visible;
   }
 
   .science-web-lines {
+    inset: 0;
+    width: 100%;
     height: 390px;
     top: 0;
   }
 
   .science-hub {
+    left: 50%;
     top: 190px;
     width: 132px;
     min-height: 132px;
@@ -1859,14 +1907,18 @@ p {
   }
 
   .science-paper-cluster {
-    inset: 535px 0 auto;
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 535px;
     display: grid;
     gap: 0.6rem;
+    padding-left: 0;
+    border-left: 0;
   }
 
   .science-paper,
   .science-paper[style] {
-    position: static;
     width: 100%;
   }
 
