@@ -175,12 +175,11 @@ const updateActivePaperFromScroll = () => {
   syncPapers();
 };
 
-const openPaperPreview = (source, title = "Selected publication") => {
+const openPaperPreview = (source, title = "Selected publication", journal = "") => {
   if (!source || !paperModal || !paperModalImage || !paperModalTitle) return;
-  if (!source) return;
   paperModalImage.src = source;
   paperModalImage.alt = `${title} first page`;
-  paperModalTitle.textContent = title;
+  paperModalTitle.textContent = journal ? `${journal} / ${title}` : title;
   paperModal.hidden = false;
   document.body.classList.add("has-open-modal");
 };
@@ -188,7 +187,7 @@ const openPaperPreview = (source, title = "Selected publication") => {
 const openPaperModal = (item) => {
   const button = item.querySelector("[data-paper-button]");
   if (!button) return;
-  openPaperPreview(button.dataset.paperSrc, button.dataset.paperTitle || "Selected publication");
+  openPaperPreview(button.dataset.paperSrc, button.dataset.paperTitle || "Selected publication", button.dataset.paperJournal || "");
 };
 
 const closePaperModal = () => {
@@ -206,7 +205,7 @@ const setScienceCategory = (category) => {
   scienceCategoryButtons.forEach((button) => {
     const isActive = button.dataset.scienceCategory === category;
     button.classList.toggle("is-active", isActive);
-    button.setAttribute("aria-selected", isActive ? "true" : "false");
+    button.setAttribute("aria-pressed", isActive ? "true" : "false");
   });
   sciencePapers.forEach((paper) => {
     paper.classList.toggle("is-visible", paper.dataset.category === category);
@@ -265,7 +264,7 @@ scienceCategoryButtons.forEach((button) => {
 
 sciencePapers.forEach((button) => {
   button.addEventListener("click", () => {
-    openPaperPreview(button.dataset.paperSrc, button.dataset.paperTitle || "Selected publication");
+    openPaperPreview(button.dataset.paperSrc, button.dataset.paperTitle || "Selected publication", button.dataset.paperJournal || "");
   });
 });
 

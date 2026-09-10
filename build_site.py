@@ -157,15 +157,17 @@ def render_paper_library() -> str:
     items = []
     for path in files:
         preview = PAPER_PREVIEWS / f"{path.name}.png"
-        title = paper_title(path)
+        metadata = paper_metadata(path)
+        title = metadata["title"]
         preview_src = "assets/images/acs-nano-paper.png"
         if preview.exists():
             preview_src = "assets/papers/previews/" + quote(preview.name)
         escaped_title = escape(title)
+        escaped_journal = escape(metadata["journal"])
         items.append(
             f"""
             <figure class="paper-card">
-              <button class="paper-button" type="button" data-paper-button data-paper-src="{preview_src}" data-paper-title="{escaped_title}">
+              <button class="paper-button" type="button" data-paper-button data-paper-src="{preview_src}" data-paper-title="{escaped_title}" data-paper-journal="{escaped_journal}">
                 <img src="{preview_src}" alt="{escaped_title} first page" loading="lazy" />
               </button>
             </figure>
@@ -195,6 +197,54 @@ def paper_title(path: Path) -> str:
     return path.stem.replace("_", " ").replace("-", " ")
 
 
+PAPER_METADATA = {
+    "Boulais et al. - 2025 - Steady advection–diffusion in polygonal microfluidic mixers.pdf": {
+        "title": "Steady advection-diffusion in polygonal microfluidic mixers",
+        "journal": "Journal of Fluid Mechanics",
+    },
+    "Chen2026.pdf": {
+        "title": "Synthesizing polymeric nanoparticles for efficient drug loading through a thermodynamically controlled tank reactor cascade",
+        "journal": "Nanoscale Advances",
+    },
+    "Devos et al. - 2025 - Manufacturing mRNA-Loaded Lipid Nanoparticles with Precise Size and Morphology Control.pdf": {
+        "title": "Manufacturing mRNA-loaded lipid nanoparticles with precise size and morphology control",
+        "journal": "ACS Nano",
+    },
+    "Devos et al. - Impinging jet mixers A review of their mixing characteristics, performance considerations, and appl.pdf": {
+        "title": "Impinging jet mixers: a review of their mixing characteristics, performance considerations, and applications",
+        "journal": "Chemical Engineering Research and Design",
+    },
+    "Inguva et al. - 2025 - Mechanistic modeling of lipid nanoparticle formation for the delivery of nucleic acid therapeutics.pdf": {
+        "title": "Mechanistic modeling of lipid nanoparticle formation for the delivery of nucleic acid therapeutics",
+        "journal": "Chemical Engineering Science",
+    },
+    "Mukherjee et al. - 2026 - Understanding Size Distributions during Lipid Nanoparticle Manufacturing through Mechanistic Modelin.pdf": {
+        "title": "Understanding size distributions during lipid nanoparticle manufacturing through mechanistic modeling",
+        "journal": "Chemical Engineering Journal",
+    },
+    "Sagmeister et al. - 2023 - The Rocky Road to a Digital Lab.pdf": {
+        "title": "The rocky road to a digital lab",
+        "journal": "Trends in Chemistry",
+    },
+    "Sagmeister et al. - 2026 - The hidden half of lipid nanoparticle manufacturing Downstream processing.pdf": {
+        "title": "The hidden half of lipid nanoparticle manufacturing: downstream processing",
+        "journal": "Molecular Pharmaceutics",
+    },
+    "Shin et al. - 2025 - Mechanistic modeling of lipid nanoparticle (LNP) precipitation via population balance equations (PBE.pdf": {
+        "title": "Mechanistic modeling of lipid nanoparticle precipitation via population balance equations",
+        "journal": "Chemical Engineering Journal",
+    },
+    "Udepurkar et al. - 2025 - Structure and Morphology of Lipid Nanoparticles for Nucleic Acid Drug Delivery A Review.pdf": {
+        "title": "Structure and morphology of lipid nanoparticles for nucleic acid drug delivery: a review",
+        "journal": "ACS Nano",
+    },
+}
+
+
+def paper_metadata(path: Path) -> dict[str, str]:
+    return PAPER_METADATA.get(path.name, {"title": paper_title(path), "journal": "Selected work"})
+
+
 SCIENCE_CATEGORIES = [
     {
         "id": "modeling",
@@ -221,6 +271,13 @@ SCIENCE_CATEGORIES = [
         "keywords": ("delivery", "translat", "drug", "therapeutic", "digital"),
     },
 ]
+
+SCIENCE_PAPER_POSITIONS = {
+    "modeling": [("21%", "5%"), ("26%", "18%"), ("13%", "32%"), ("32%", "35%"), ("18%", "46%")],
+    "process": [("61%", "5%"), ("68%", "23%"), ("56%", "35%"), ("72%", "39%")],
+    "architecture": [("61%", "71%"), ("72%", "60%"), ("53%", "65%")],
+    "translation": [("20%", "72%"), ("31%", "61%"), ("11%", "60%")],
+}
 
 
 def science_category_for(title: str) -> str:
@@ -251,31 +308,37 @@ def render_science_network() -> str:
     if files:
         make_paper_previews(files)
 
-    tabs = []
+    nodes = []
     papers = []
     for index, category in enumerate(SCIENCE_CATEGORIES, start=1):
         active = " is-active" if index == 1 else ""
         selected = "true" if index == 1 else "false"
-        tabs.append(
+        nodes.append(
             f"""
-            <button class="science-category{active}" type="button" role="tab" aria-selected="{selected}" data-science-category="{category["id"]}">
+            <button class="science-orbit-node science-orbit-{category["id"]}{active}" type="button" aria-pressed="{selected}" data-science-category="{category["id"]}">
               <span>{index:02d}</span>
-              {escape(category["label"])}
+              <strong>{escape(category["label"])}</strong>
             </button>
             """.strip()
         )
 
     if files:
+        category_counts = {category["id"]: 0 for category in SCIENCE_CATEGORIES}
         for path in files:
-            title = paper_title(path)
+            metadata = paper_metadata(path)
+            title = metadata["title"]
             category_id = science_category_for(title)
-            category = next(item for item in SCIENCE_CATEGORIES if item["id"] == category_id)
+            positions = SCIENCE_PAPER_POSITIONS[category_id]
+            position = positions[category_counts[category_id] % len(positions)]
+            category_counts[category_id] += 1
             visible = " is-visible" if category_id == SCIENCE_CATEGORIES[0]["id"] else ""
+            escaped_title = escape(title)
+            escaped_journal = escape(metadata["journal"])
             papers.append(
                 f"""
-                <button class="science-paper{visible}" type="button" data-science-paper data-category="{category_id}" data-paper-src="{paper_preview_source(path)}" data-paper-title="{escape(title)}">
-                  <span>{escape(category["label"])}</span>
-                  <strong>{escape(title)}</strong>
+                <button class="science-paper{visible}" type="button" style="--paper-x: {position[0]}; --paper-y: {position[1]};" data-science-paper data-category="{category_id}" data-paper-src="{paper_preview_source(path)}" data-paper-title="{escaped_title}" data-paper-journal="{escaped_journal}">
+                  <span>{escaped_journal}</span>
+                  <strong>{escaped_title}</strong>
                 </button>
                 """.strip()
             )
@@ -291,18 +354,24 @@ def render_science_network() -> str:
 
     return f"""
     <div class="science-network" data-science-network>
-      <div class="science-category-nav" role="tablist" aria-label="Scientific categories">
-        {"".join(tabs)}
-      </div>
       <div class="science-web" data-science-web data-active-category="{SCIENCE_CATEGORIES[0]["id"]}">
+        <svg class="science-web-lines" viewBox="0 0 900 560" aria-hidden="true" focusable="false">
+          <path class="web-ring" d="M450 92 C615 92 748 196 748 280 C748 364 615 468 450 468 C285 468 152 364 152 280 C152 196 285 92 450 92Z" />
+          <path class="web-ring web-ring-inner" d="M450 158 C562 158 653 213 653 280 C653 347 562 402 450 402 C338 402 247 347 247 280 C247 213 338 158 450 158Z" />
+          <path class="web-path web-path-modeling" data-web-line="modeling" d="M450 280 C378 220 298 158 212 118" />
+          <path class="web-path web-path-process" data-web-line="process" d="M450 280 C560 215 664 168 782 140" />
+          <path class="web-path web-path-architecture" data-web-line="architecture" d="M450 280 C594 310 700 352 804 420" />
+          <path class="web-path web-path-translation" data-web-line="translation" d="M450 280 C330 345 245 388 122 428" />
+          <path class="web-branch web-branch-modeling" data-web-line="modeling" d="M212 118 C265 91 338 84 404 100" />
+          <path class="web-branch web-branch-process" data-web-line="process" d="M782 140 C728 103 646 93 580 108" />
+          <path class="web-branch web-branch-architecture" data-web-line="architecture" d="M804 420 C744 462 650 474 572 450" />
+          <path class="web-branch web-branch-translation" data-web-line="translation" d="M122 428 C188 464 286 474 372 448" />
+        </svg>
         <div class="science-hub">
           <span>Design loop</span>
           <strong>Process -> architecture -> biology</strong>
         </div>
-        <div class="science-thread science-thread-1" aria-hidden="true"></div>
-        <div class="science-thread science-thread-2" aria-hidden="true"></div>
-        <div class="science-thread science-thread-3" aria-hidden="true"></div>
-        <div class="science-thread science-thread-4" aria-hidden="true"></div>
+        {"".join(nodes)}
         <div class="science-category-note" data-science-category-note>
           <span>{escape(SCIENCE_CATEGORIES[0]["label"])}</span>
           <p>{escape(SCIENCE_CATEGORIES[0]["body"])}</p>
