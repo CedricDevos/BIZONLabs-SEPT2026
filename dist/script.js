@@ -124,6 +124,9 @@ const paperModal = document.querySelector("[data-paper-modal]");
 const paperModalImage = document.querySelector("[data-paper-modal-image]");
 const paperModalTitle = document.querySelector("[data-paper-modal-title]");
 const paperModalCloseButtons = document.querySelectorAll("[data-paper-close]");
+const scienceOpen = document.querySelector("[data-science-open]");
+const scienceModal = document.querySelector("[data-science-modal]");
+const scienceModalCloseButtons = document.querySelectorAll("[data-science-close]");
 let activePaper = 0;
 let paperScrollTimer = null;
 
@@ -169,6 +172,18 @@ const closePaperModal = () => {
   document.body.classList.remove("has-open-modal");
 };
 
+const openScienceModal = () => {
+  if (!scienceModal) return;
+  scienceModal.hidden = false;
+  document.body.classList.add("has-open-modal");
+};
+
+const closeScienceModal = () => {
+  if (!scienceModal) return;
+  scienceModal.hidden = true;
+  document.body.classList.remove("has-open-modal");
+};
+
 paperItems.forEach((item, index) => {
   item.addEventListener("click", () => {
     activePaper = index;
@@ -195,9 +210,18 @@ paperModalCloseButtons.forEach((button) => {
   button.addEventListener("click", closePaperModal);
 });
 
+scienceOpen?.addEventListener("click", openScienceModal);
+
+scienceModalCloseButtons.forEach((button) => {
+  button.addEventListener("click", closeScienceModal);
+});
+
 document.addEventListener("keydown", (event) => {
   if (event.key === "Escape" && paperModal && !paperModal.hidden) {
     closePaperModal();
+  }
+  if (event.key === "Escape" && scienceModal && !scienceModal.hidden) {
+    closeScienceModal();
   }
 });
 

@@ -126,24 +126,9 @@
           <span>citations</span>
         </div>
             </div>
-            <div class="science-map" aria-label="Connected scientific expertise">
-              <div class="science-node">
-          <span>01</span>
-          <p>Lipid nanoparticle formulation</p>
-        </div>
-<div class="science-node">
-          <span>02</span>
-          <p>Self-assembly and particle architecture</p>
-        </div>
-<div class="science-node">
-          <span>03</span>
-          <p>Biophysical characterization</p>
-        </div>
-<div class="science-node">
-          <span>04</span>
-          <p>Delivery biology and translation</p>
-        </div>
-            </div>
+            <button class="science-learn" type="button" data-science-open>
+              Learn more about the science
+            </button>
           </div>
           <div class="paper-visual" data-paper-gallery aria-label="Selected publication preview">
             <figure class="paper-card">
@@ -304,6 +289,36 @@
         <p class="eyebrow">Selected work</p>
         <img data-paper-modal-image src="" alt="" />
         <p id="paper-modal-title" class="paper-modal-title" data-paper-modal-title></p>
+      </div>
+    </div>
+
+    <div class="science-modal" data-science-modal hidden>
+      <button class="paper-modal-backdrop" type="button" data-science-close aria-label="Close science overview"></button>
+      <div class="science-modal-panel" role="dialog" aria-modal="true" aria-labelledby="science-modal-title">
+        <button class="paper-modal-close" type="button" data-science-close aria-label="Close science overview">Close</button>
+        <p class="eyebrow">Connected expertise</p>
+        <h2 id="science-modal-title">From process choices to biological performance.</h2>
+        <p>
+          BIZON Labs connects formulation, process development, particle architecture, characterization, and delivery biology into one design loop.
+        </p>
+        <div class="science-map science-map-modal" aria-label="Connected scientific expertise">
+          <div class="science-node">
+          <span>01</span>
+          <p>Lipid nanoparticle formulation</p>
+        </div>
+<div class="science-node">
+          <span>02</span>
+          <p>Self-assembly and particle architecture</p>
+        </div>
+<div class="science-node">
+          <span>03</span>
+          <p>Biophysical characterization</p>
+        </div>
+<div class="science-node">
+          <span>04</span>
+          <p>Delivery biology and translation</p>
+        </div>
+        </div>
       </div>
     </div>
 
