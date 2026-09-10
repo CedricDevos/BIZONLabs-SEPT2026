@@ -285,6 +285,7 @@ def build() -> None:
         contact_eyebrow=sections["contact"]["eyebrow"],
         contact_title=sections["contact"]["title"],
         contact_body=sections["contact"]["body"],
+        contact_note=sections["contact"].get("note", ""),
     )
 
     DIST.mkdir(exist_ok=True)
