@@ -195,6 +195,126 @@ def paper_title(path: Path) -> str:
     return path.stem.replace("_", " ").replace("-", " ")
 
 
+SCIENCE_CATEGORIES = [
+    {
+        "id": "modeling",
+        "label": "Modeling",
+        "body": "Mechanistic models that connect process inputs to particle outcomes.",
+        "keywords": ("model", "advection", "diffusion", "distribution"),
+    },
+    {
+        "id": "process",
+        "label": "Process",
+        "body": "Manufacturing and mixing work that turns formulation ideas into controlled particles.",
+        "keywords": ("manufactur", "mixer", "process", "precipitation", "downstream"),
+    },
+    {
+        "id": "architecture",
+        "label": "Architecture",
+        "body": "Structure and morphology studies that define what the particle becomes.",
+        "keywords": ("structure", "morphology", "nanoscale", "architecture"),
+    },
+    {
+        "id": "translation",
+        "label": "Translation",
+        "body": "Delivery-facing work that keeps biological performance and scale in view.",
+        "keywords": ("delivery", "translat", "drug", "therapeutic", "digital"),
+    },
+]
+
+
+def science_category_for(title: str) -> str:
+    normalized = title.lower()
+    for category in SCIENCE_CATEGORIES:
+        if any(keyword in normalized for keyword in category["keywords"]):
+            return category["id"]
+    return "translation"
+
+
+def paper_files() -> list[Path]:
+    return [
+        path
+        for path in sorted(PAPER_LIBRARY.iterdir(), key=lambda item: item.name.lower())
+        if path.is_file() and path.suffix.lower() in PAPER_TYPES
+    ]
+
+
+def paper_preview_source(path: Path) -> str:
+    preview = PAPER_PREVIEWS / f"{path.name}.png"
+    if preview.exists():
+        return "assets/papers/previews/" + quote(preview.name)
+    return "assets/images/acs-nano-paper.png"
+
+
+def render_science_network() -> str:
+    files = paper_files()
+    if files:
+        make_paper_previews(files)
+
+    tabs = []
+    papers = []
+    for index, category in enumerate(SCIENCE_CATEGORIES, start=1):
+        active = " is-active" if index == 1 else ""
+        selected = "true" if index == 1 else "false"
+        tabs.append(
+            f"""
+            <button class="science-category{active}" type="button" role="tab" aria-selected="{selected}" data-science-category="{category["id"]}">
+              <span>{index:02d}</span>
+              {escape(category["label"])}
+            </button>
+            """.strip()
+        )
+
+    if files:
+        for path in files:
+            title = paper_title(path)
+            category_id = science_category_for(title)
+            category = next(item for item in SCIENCE_CATEGORIES if item["id"] == category_id)
+            visible = " is-visible" if category_id == SCIENCE_CATEGORIES[0]["id"] else ""
+            papers.append(
+                f"""
+                <button class="science-paper{visible}" type="button" data-science-paper data-category="{category_id}" data-paper-src="{paper_preview_source(path)}" data-paper-title="{escape(title)}">
+                  <span>{escape(category["label"])}</span>
+                  <strong>{escape(title)}</strong>
+                </button>
+                """.strip()
+            )
+    else:
+        papers.append(
+            """
+            <button class="science-paper is-visible" type="button" data-science-paper data-category="modeling" data-paper-src="assets/images/acs-nano-paper.png" data-paper-title="Selected publication preview">
+              <span>Modeling</span>
+              <strong>Selected publication preview</strong>
+            </button>
+            """.strip()
+        )
+
+    return f"""
+    <div class="science-network" data-science-network>
+      <div class="science-category-nav" role="tablist" aria-label="Scientific categories">
+        {"".join(tabs)}
+      </div>
+      <div class="science-web" data-science-web data-active-category="{SCIENCE_CATEGORIES[0]["id"]}">
+        <div class="science-hub">
+          <span>Design loop</span>
+          <strong>Process -> architecture -> biology</strong>
+        </div>
+        <div class="science-thread science-thread-1" aria-hidden="true"></div>
+        <div class="science-thread science-thread-2" aria-hidden="true"></div>
+        <div class="science-thread science-thread-3" aria-hidden="true"></div>
+        <div class="science-thread science-thread-4" aria-hidden="true"></div>
+        <div class="science-category-note" data-science-category-note>
+          <span>{escape(SCIENCE_CATEGORIES[0]["label"])}</span>
+          <p>{escape(SCIENCE_CATEGORIES[0]["body"])}</p>
+        </div>
+        <div class="science-paper-cluster" aria-live="polite">
+          {"".join(papers)}
+        </div>
+      </div>
+    </div>
+    """.strip()
+
+
 def render_science_areas(areas: list[str]) -> str:
     return "\n".join(
         f"""
@@ -287,6 +407,7 @@ def build() -> None:
         science_metrics=render_science_metrics(sections["science"].get("metrics", [])),
         paper_previews=render_paper_library(),
         science_areas=render_science_areas(sections["science"]["areas"]),
+        science_network=render_science_network(),
         publications=render_publications(sections["science"]["publications"]),
         profile_links=render_profile_links(sections["science"].get("profiles", [])),
         team_eyebrow=sections["team"]["eyebrow"],

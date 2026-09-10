@@ -127,8 +127,31 @@ const paperModalCloseButtons = document.querySelectorAll("[data-paper-close]");
 const scienceOpen = document.querySelector("[data-science-open]");
 const scienceModal = document.querySelector("[data-science-modal]");
 const scienceModalCloseButtons = document.querySelectorAll("[data-science-close]");
+const scienceCategoryButtons = Array.from(document.querySelectorAll("[data-science-category]"));
+const sciencePapers = Array.from(document.querySelectorAll("[data-science-paper]"));
+const scienceWeb = document.querySelector("[data-science-web]");
+const scienceCategoryNote = document.querySelector("[data-science-category-note]");
 let activePaper = 0;
 let paperScrollTimer = null;
+
+const scienceNotes = {
+  modeling: {
+    label: "Modeling",
+    body: "Mechanistic models that connect process inputs to particle outcomes.",
+  },
+  process: {
+    label: "Process",
+    body: "Manufacturing and mixing work that turns formulation ideas into controlled particles.",
+  },
+  architecture: {
+    label: "Architecture",
+    body: "Structure and morphology studies that define what the particle becomes.",
+  },
+  translation: {
+    label: "Translation",
+    body: "Delivery-facing work that keeps biological performance and scale in view.",
+  },
+};
 
 const syncPapers = () => {
   paperItems.forEach((item, index) => {
@@ -152,11 +175,8 @@ const updateActivePaperFromScroll = () => {
   syncPapers();
 };
 
-const openPaperModal = (item) => {
-  const button = item.querySelector("[data-paper-button]");
-  if (!button || !paperModal || !paperModalImage || !paperModalTitle) return;
-  const source = button.dataset.paperSrc;
-  const title = button.dataset.paperTitle || "Selected publication";
+const openPaperPreview = (source, title = "Selected publication") => {
+  if (!source || !paperModal || !paperModalImage || !paperModalTitle) return;
   if (!source) return;
   paperModalImage.src = source;
   paperModalImage.alt = `${title} first page`;
@@ -165,17 +185,44 @@ const openPaperModal = (item) => {
   document.body.classList.add("has-open-modal");
 };
 
+const openPaperModal = (item) => {
+  const button = item.querySelector("[data-paper-button]");
+  if (!button) return;
+  openPaperPreview(button.dataset.paperSrc, button.dataset.paperTitle || "Selected publication");
+};
+
 const closePaperModal = () => {
   if (!paperModal || !paperModalImage) return;
   paperModal.hidden = true;
   paperModalImage.removeAttribute("src");
-  document.body.classList.remove("has-open-modal");
+  if (!scienceModal || scienceModal.hidden) {
+    document.body.classList.remove("has-open-modal");
+  }
+};
+
+const setScienceCategory = (category) => {
+  if (!category) return;
+  scienceWeb?.setAttribute("data-active-category", category);
+  scienceCategoryButtons.forEach((button) => {
+    const isActive = button.dataset.scienceCategory === category;
+    button.classList.toggle("is-active", isActive);
+    button.setAttribute("aria-selected", isActive ? "true" : "false");
+  });
+  sciencePapers.forEach((paper) => {
+    paper.classList.toggle("is-visible", paper.dataset.category === category);
+  });
+  const note = scienceNotes[category];
+  if (scienceCategoryNote && note) {
+    scienceCategoryNote.querySelector("span").textContent = note.label;
+    scienceCategoryNote.querySelector("p").textContent = note.body;
+  }
 };
 
 const openScienceModal = () => {
   if (!scienceModal) return;
   scienceModal.hidden = false;
   document.body.classList.add("has-open-modal");
+  setScienceCategory(scienceCategoryButtons.find((button) => button.classList.contains("is-active"))?.dataset.scienceCategory || "modeling");
 };
 
 const closeScienceModal = () => {
@@ -211,6 +258,16 @@ paperModalCloseButtons.forEach((button) => {
 });
 
 scienceOpen?.addEventListener("click", openScienceModal);
+
+scienceCategoryButtons.forEach((button) => {
+  button.addEventListener("click", () => setScienceCategory(button.dataset.scienceCategory));
+});
+
+sciencePapers.forEach((button) => {
+  button.addEventListener("click", () => {
+    openPaperPreview(button.dataset.paperSrc, button.dataset.paperTitle || "Selected publication");
+  });
+});
 
 scienceModalCloseButtons.forEach((button) => {
   button.addEventListener("click", closeScienceModal);
