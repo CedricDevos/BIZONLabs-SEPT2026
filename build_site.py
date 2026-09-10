@@ -355,10 +355,7 @@ def render_science_network() -> str:
           <path class="web-branch web-branch-architecture" data-web-line="architecture" d="M804 420 C744 462 650 474 572 450" />
           <path class="web-branch web-branch-translation" data-web-line="translation" d="M122 428 C188 464 286 474 372 448" />
         </svg>
-        <div class="science-hub">
-          <span>Design loop</span>
-          <strong>Process -> architecture -> biology</strong>
-        </div>
+        <div class="science-web-core" aria-hidden="true"></div>
         {"".join(nodes)}
         <div class="science-category-note" data-science-category-note>
           <span>{escape(SCIENCE_CATEGORIES[0]["label"])}</span>

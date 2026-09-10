@@ -760,7 +760,7 @@ p {
 
 .science-showcase {
   display: grid;
-  grid-template-columns: minmax(280px, 0.72fr) minmax(260px, 0.58fr);
+  grid-template-columns: minmax(280px, 0.72fr) minmax(260px, 0.5fr);
   gap: clamp(2.5rem, 7vw, 7rem);
   align-items: center;
   border-top: 1px solid rgba(8, 7, 13, 0.11);
@@ -768,25 +768,24 @@ p {
 }
 
 .science-copy {
-  align-self: stretch;
   display: flex;
   flex-direction: column;
   justify-content: center;
-  max-width: 560px;
+  max-width: 620px;
 }
 
 .science-metrics {
+  justify-self: end;
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: 1px;
-  max-width: 520px;
-  margin-top: clamp(2.5rem, 5vw, 4.6rem);
+  width: min(100%, 520px);
   background: rgba(8, 7, 13, 0.12);
   border: 1px solid rgba(8, 7, 13, 0.12);
 }
 
 .science-metric {
-  min-height: clamp(118px, 14vw, 165px);
+  min-height: clamp(145px, 15vw, 190px);
   display: flex;
   flex-direction: column;
   justify-content: flex-end;
@@ -799,7 +798,7 @@ p {
   display: block;
   color: var(--storm);
   font-family: var(--font-display);
-  font-size: clamp(1.55rem, 3.2vw, 3.15rem);
+  font-size: clamp(2rem, 4.2vw, 4.25rem);
   font-weight: 700;
   line-height: 1;
 }
@@ -1100,25 +1099,22 @@ p {
   opacity: 1;
 }
 
-.science-hub {
+.science-web-core {
   position: absolute;
   z-index: 2;
   left: calc(31% + clamp(0rem, 1vw, 0.4rem));
   top: 50%;
-  width: clamp(145px, 18vw, 190px);
-  min-height: clamp(145px, 18vw, 190px);
-  display: grid;
-  place-content: center;
-  padding: 1.15rem;
+  width: clamp(74px, 8vw, 104px);
+  height: clamp(74px, 8vw, 104px);
   border: 1px solid rgba(28, 0, 89, 0.16);
   border-radius: 50%;
-  background: rgba(248, 247, 243, 0.82);
-  text-align: center;
+  background:
+    radial-gradient(circle, rgba(124, 112, 235, 0.18), rgba(124, 112, 235, 0.04) 58%, transparent 60%),
+    rgba(248, 247, 243, 0.52);
   transform: translate(-50%, -50%);
-  box-shadow: 0 22px 70px rgba(28, 0, 89, 0.08);
+  box-shadow: 0 22px 70px rgba(28, 0, 89, 0.07);
 }
 
-.science-hub span,
 .science-category-note span,
 .science-paper span,
 .science-orbit-node span {
@@ -1127,14 +1123,6 @@ p {
   font-size: 0.7rem;
   font-weight: 800;
   text-transform: uppercase;
-}
-
-.science-hub strong {
-  display: block;
-  margin-top: 0.5rem;
-  color: var(--ink);
-  font-size: clamp(0.92rem, 1.1vw, 1.08rem);
-  line-height: 1.25;
 }
 
 .science-orbit-node {
@@ -1862,12 +1850,11 @@ p {
     top: 0;
   }
 
-  .science-hub {
+  .science-web-core {
     left: 50%;
     top: 190px;
-    width: 132px;
-    min-height: 132px;
-    padding: 0.9rem;
+    width: 78px;
+    height: 78px;
   }
 
   .science-orbit-node {
