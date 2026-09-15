@@ -34,13 +34,13 @@
     <div class="page-progress" data-page-progress aria-hidden="true"></div>
     <header class="site-header" data-header>
       <a class="brand-mark" href="#top" aria-label="$company home">
-        <img src="assets/logos/bizon-labs-white.svg" alt="$company" />
+        <span>BIZON Labs</span>
       </a>
       <nav aria-label="Primary navigation">
-        <a href="#about">About</a>
         <a href="#approach">Approach</a>
-        <a href="#science">Science</a>
         <a href="#team">The Herd</a>
+        <a href="#about">About</a>
+        <a href="#science">Science</a>
         <a href="#contact">Contact</a>
       </nav>
     </header>
@@ -62,6 +62,31 @@
         </div>
       </section>
 
+      <section class="approach-section reveal-group" id="approach" aria-labelledby="approach-title">
+        <div class="section-heading" data-reveal>
+          <p class="eyebrow">$approach_eyebrow</p>
+          <h2 id="approach-title">$approach_title</h2>
+          <p>$approach_body</p>
+        </div>
+        <div class="pillar-grid">
+          $pillars
+        </div>
+      </section>
+
+      <section class="light-section team-section reveal-group" id="team" aria-labelledby="team-title">
+        <div class="section-heading" data-reveal>
+          <p class="eyebrow">$team_eyebrow</p>
+          <h2 id="team-title">$team_title</h2>
+          <p>$team_intro</p>
+        </div>
+        <figure class="team-photo" data-reveal data-parallax-media>
+          <img src="assets/images/bizon-team.png" alt="BIZON Labs founding team" />
+        </figure>
+        <div class="team-grid" data-reveal>
+          $team_members
+        </div>
+      </section>
+
       <section class="light-section intro-grid reveal-group" id="about" aria-labelledby="about-title">
         <div>
           <p class="eyebrow" data-reveal>$about_eyebrow</p>
@@ -80,43 +105,18 @@
         </p>
       </section>
 
-      <section class="approach-section reveal-group" id="approach" aria-labelledby="approach-title">
-        <div class="section-heading" data-reveal>
-          <p class="eyebrow">$approach_eyebrow</p>
-          <h2 id="approach-title">$approach_title</h2>
-          <p>$approach_body</p>
-        </div>
-        <div class="pillar-grid">
-          $pillars
-        </div>
-      </section>
-
       <section class="science-section light-section reveal-group" id="science" aria-labelledby="science-title">
         <div class="science-showcase" data-reveal>
           <div class="science-copy">
             <p class="eyebrow">$science_eyebrow</p>
             <h2 id="science-title">$science_title</h2>
-            <button class="science-learn" type="button" data-science-open>
-              Learn more about the science
-            </button>
           </div>
           <div class="science-metrics" aria-label="Research impact">
             $science_metrics
           </div>
         </div>
-      </section>
-
-      <section class="light-section team-section reveal-group" id="team" aria-labelledby="team-title">
-        <div class="section-heading" data-reveal>
-          <p class="eyebrow">$team_eyebrow</p>
-          <h2 id="team-title">$team_title</h2>
-          <p>$team_intro</p>
-        </div>
-        <figure class="team-photo" data-reveal data-parallax-media>
-          <img src="assets/images/bizon-team.png" alt="BIZON Labs founding team" />
-        </figure>
-        <div class="team-grid" data-reveal>
-          $team_members
+        <div class="science-evidence" data-reveal>
+          $science_evidence
         </div>
       </section>
 
@@ -146,33 +146,9 @@
       </section>
     </main>
 
-    <div class="paper-modal" data-paper-modal hidden>
-      <button class="paper-modal-backdrop" type="button" data-paper-close aria-label="Close paper preview"></button>
-      <div class="paper-modal-panel" role="dialog" aria-modal="true" aria-labelledby="paper-modal-title">
-        <button class="paper-modal-close" type="button" data-paper-close aria-label="Close paper preview">Close</button>
-        <p class="eyebrow">Selected work</p>
-        <img data-paper-modal-image src="" alt="" />
-        <p id="paper-modal-title" class="paper-modal-title" data-paper-modal-title></p>
-      </div>
-    </div>
-
-    <div class="science-modal" data-science-modal hidden>
-      <button class="paper-modal-backdrop" type="button" data-science-close aria-label="Close science overview"></button>
-      <div class="science-modal-panel" role="dialog" aria-modal="true" aria-labelledby="science-modal-title">
-        <button class="paper-modal-close" type="button" data-science-close aria-label="Close science overview">Close</button>
-        <p class="eyebrow">Connected expertise</p>
-        <h2 id="science-modal-title">From process choices to biological performance.</h2>
-        <p>
-          BIZON Labs connects formulation, process development, particle architecture, characterization, and delivery biology into one design loop.
-        </p>
-        $science_network
-      </div>
-    </div>
-
     <footer class="site-footer">
       <div class="footer-brand">
-        <img src="assets/logos/bizon-labs-white.svg" alt="$company" />
-        <p>Defy limits.</p>
+        <p>BIZON Labs</p>
       </div>
       <div class="footer-legal" aria-label="Legal disclaimers">
         <p>

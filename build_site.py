@@ -3,7 +3,6 @@ from __future__ import annotations
 
 import json
 import shutil
-import subprocess
 from html import escape
 from pathlib import Path
 from string import Template
@@ -16,7 +15,6 @@ TEMPLATE = ROOT / "site" / "index.template.html"
 DIST = ROOT / "dist"
 MEDIA_LIBRARY = ROOT / "assets" / "media-library"
 PAPER_LIBRARY = ROOT / "assets" / "papers"
-PAPER_PREVIEWS = PAPER_LIBRARY / "previews"
 IMAGE_TYPES = {".jpg", ".jpeg", ".png", ".webp", ".gif"}
 VIDEO_TYPES = {".mov", ".mp4", ".webm"}
 PAPER_TYPES = {".pdf"}
@@ -138,61 +136,6 @@ def render_media_library() -> str:
     return "\n".join(items)
 
 
-def render_paper_library() -> str:
-    files = [
-        path
-        for path in sorted(PAPER_LIBRARY.iterdir(), key=lambda item: item.name.lower())
-        if path.is_file() and path.suffix.lower() in PAPER_TYPES
-    ]
-    if not files:
-        return """
-        <figure class="paper-card">
-          <button class="paper-button" type="button" data-paper-button data-paper-src="assets/images/acs-nano-paper.png" data-paper-title="Selected publication preview">
-            <img src="assets/images/acs-nano-paper.png" alt="ACS Nano publication preview" loading="lazy" />
-          </button>
-        </figure>
-        """.strip()
-
-    make_paper_previews(files)
-    items = []
-    for path in files:
-        preview = PAPER_PREVIEWS / f"{path.name}.png"
-        metadata = paper_metadata(path)
-        title = metadata["title"]
-        preview_src = "assets/images/acs-nano-paper.png"
-        if preview.exists():
-            preview_src = "assets/papers/previews/" + quote(preview.name)
-        escaped_title = escape(title)
-        escaped_journal = escape(metadata["journal"])
-        items.append(
-            f"""
-            <figure class="paper-card">
-              <button class="paper-button" type="button" data-paper-button data-paper-src="{preview_src}" data-paper-title="{escaped_title}" data-paper-journal="{escaped_journal}">
-                <img src="{preview_src}" alt="{escaped_title} first page" loading="lazy" />
-              </button>
-            </figure>
-            """.strip()
-        )
-    return "\n".join(items)
-
-
-def make_paper_previews(files: list[Path]) -> None:
-    generator = shutil.which("qlmanage")
-    if generator is None:
-        return
-    PAPER_PREVIEWS.mkdir(parents=True, exist_ok=True)
-    for path in files:
-        preview = PAPER_PREVIEWS / f"{path.name}.png"
-        if preview.exists() and preview.stat().st_mtime >= path.stat().st_mtime:
-            continue
-        subprocess.run(
-            [generator, "-t", "-s", "1100", "-o", str(PAPER_PREVIEWS), str(path)],
-            check=False,
-            stdout=subprocess.DEVNULL,
-            stderr=subprocess.DEVNULL,
-        )
-
-
 def paper_title(path: Path) -> str:
     return path.stem.replace("_", " ").replace("-", " ")
 
@@ -288,129 +231,6 @@ def paper_files() -> list[Path]:
     ]
 
 
-def paper_preview_source(path: Path) -> str:
-    preview = PAPER_PREVIEWS / f"{path.name}.png"
-    if preview.exists():
-        return "assets/papers/previews/" + quote(preview.name)
-    return "assets/images/acs-nano-paper.png"
-
-
-def render_science_network() -> str:
-    files = paper_files()
-    if files:
-        make_paper_previews(files)
-
-    nodes = []
-    papers = []
-    for index, category in enumerate(SCIENCE_CATEGORIES, start=1):
-        active = " is-active" if index == 1 else ""
-        selected = "true" if index == 1 else "false"
-        nodes.append(
-            f"""
-            <button class="science-orbit-node science-orbit-{category["id"]}{active}" type="button" aria-pressed="{selected}" data-science-category="{category["id"]}">
-              <span>{index:02d}</span>
-              <strong>{escape(category["label"])}</strong>
-            </button>
-            """.strip()
-        )
-
-    if files:
-        for path in files:
-            metadata = paper_metadata(path)
-            title = metadata["title"]
-            category_id = science_category_for(title)
-            visible = " is-visible" if category_id == SCIENCE_CATEGORIES[0]["id"] else ""
-            escaped_title = escape(title)
-            escaped_journal = escape(metadata["journal"])
-            papers.append(
-                f"""
-                <button class="science-paper{visible}" type="button" data-science-paper data-category="{category_id}" data-paper-src="{paper_preview_source(path)}" data-paper-title="{escaped_title}" data-paper-journal="{escaped_journal}">
-                  <span>{escaped_journal}</span>
-                  <strong>{escaped_title}</strong>
-                </button>
-                """.strip()
-            )
-    else:
-        papers.append(
-            """
-            <button class="science-paper is-visible" type="button" data-science-paper data-category="modeling" data-paper-src="assets/images/acs-nano-paper.png" data-paper-title="Selected publication preview">
-              <span>Modeling</span>
-              <strong>Selected publication preview</strong>
-            </button>
-            """.strip()
-        )
-
-    return f"""
-    <div class="science-network" data-science-network>
-      <div class="science-web" data-science-web data-active-category="{SCIENCE_CATEGORIES[0]["id"]}">
-        <div class="science-web-map">
-          <svg class="science-web-lines" viewBox="0 0 900 560" aria-hidden="true" focusable="false">
-            <path class="web-ring" d="M450 106 C596 106 716 184 716 280 C716 376 596 454 450 454 C304 454 184 376 184 280 C184 184 304 106 450 106Z" />
-            <path class="web-ring web-ring-inner" d="M450 172 C546 172 624 220 624 280 C624 340 546 388 450 388 C354 388 276 340 276 280 C276 220 354 172 450 172Z" />
-            <path class="web-strand" d="M450 106 C462 168 462 222 450 280 C438 338 438 392 450 454" />
-            <path class="web-strand" d="M184 280 C274 256 360 256 450 280 C540 304 626 304 716 280" />
-            <path class="web-strand" d="M272 156 C354 214 391 242 450 280 C509 318 546 346 628 404" />
-            <path class="web-strand" d="M628 156 C546 214 509 242 450 280 C391 318 354 346 272 404" />
-            <path class="web-path web-path-modeling" data-web-line="modeling" d="M450 280 C382 230 322 190 244 142" />
-            <path class="web-path web-path-process" data-web-line="process" d="M450 280 C526 224 596 184 678 142" />
-            <path class="web-path web-path-architecture" data-web-line="architecture" d="M450 280 C530 326 600 372 678 418" />
-            <path class="web-path web-path-translation" data-web-line="translation" d="M450 280 C374 326 316 372 244 418" />
-            <path class="web-branch web-branch-modeling" data-web-line="modeling" d="M244 142 C294 118 350 112 408 126" />
-            <path class="web-branch web-branch-process" data-web-line="process" d="M678 142 C622 116 562 112 506 128" />
-            <path class="web-branch web-branch-architecture" data-web-line="architecture" d="M678 418 C620 444 558 448 500 432" />
-            <path class="web-branch web-branch-translation" data-web-line="translation" d="M244 418 C302 444 360 448 414 432" />
-          </svg>
-          <div class="science-web-core" aria-hidden="true"></div>
-          {"".join(nodes)}
-        </div>
-        <div class="science-paper-cluster" aria-live="polite">
-          <div class="science-category-note" data-science-category-note>
-            <span>{escape(SCIENCE_CATEGORIES[0]["label"])}</span>
-            <p>{escape(SCIENCE_CATEGORIES[0]["body"])}</p>
-          </div>
-          <p class="science-paper-panel-label">Selected papers</p>
-          {"".join(papers)}
-        </div>
-      </div>
-    </div>
-    """.strip()
-
-
-def render_science_areas(areas: list[str]) -> str:
-    return "\n".join(
-        f"""
-        <div class="science-node">
-          <span>{index:02d}</span>
-          <p>{escape(area)}</p>
-        </div>
-        """.strip()
-        for index, area in enumerate(areas, start=1)
-    )
-
-
-def render_publications(publications: list[str]) -> str:
-    items = []
-    for index, publication in enumerate(publications, start=1):
-        if isinstance(publication, str):
-            title = publication
-            url = ""
-        else:
-            title = publication["title"]
-            url = publication.get("url", "")
-        text = escape(title)
-        if url:
-            text = f'<a href="{escape(url)}" target="_blank" rel="noreferrer">{text}</a>'
-        items.append(
-            f"""
-            <article class="publication-item">
-              <span>{index:02d}</span>
-              <p>{text}</p>
-            </article>
-            """.strip()
-        )
-    return "\n".join(items)
-
-
 def render_science_metrics(metrics: list[dict]) -> str:
     return "\n".join(
         f"""
@@ -423,11 +243,42 @@ def render_science_metrics(metrics: list[dict]) -> str:
     )
 
 
-def render_profile_links(profiles: list[dict]) -> str:
-    return "\n".join(
-        f'<a href="{escape(profile["url"])}" target="_blank" rel="noreferrer">{escape(profile["label"])}</a>'
-        for profile in profiles
-    )
+def render_science_evidence() -> str:
+    files = paper_files()
+    grouped: dict[str, list[dict[str, str]]] = {category["id"]: [] for category in SCIENCE_CATEGORIES}
+    for path in files:
+        metadata = paper_metadata(path)
+        grouped[science_category_for(metadata["title"])].append(metadata)
+
+    items = []
+    for index, category in enumerate(SCIENCE_CATEGORIES, start=1):
+        papers = grouped[category["id"]][:2]
+        paper_markup = "\n".join(
+            f"""
+            <li>
+              <span>{escape(paper["journal"])}</span>
+              <strong>{escape(paper["title"])}</strong>
+            </li>
+            """.strip()
+            for paper in papers
+        )
+        if not paper_markup:
+            paper_markup = "<li><strong>Selected work to be added.</strong></li>"
+        items.append(
+            f"""
+            <article class="evidence-card">
+              <div class="evidence-card-heading">
+                <span>{index:02d}</span>
+                <h3>{escape(category["label"])}</h3>
+              </div>
+              <p>{escape(category["body"])}</p>
+              <ul>
+                {paper_markup}
+              </ul>
+            </article>
+            """.strip()
+        )
+    return "\n".join(items)
 
 
 def copy_tree(source: Path, destination: Path) -> None:
@@ -466,11 +317,7 @@ def build() -> None:
         science_title=sections["science"]["title"],
         science_body=sections["science"]["body"],
         science_metrics=render_science_metrics(sections["science"].get("metrics", [])),
-        paper_previews=render_paper_library(),
-        science_areas=render_science_areas(sections["science"]["areas"]),
-        science_network=render_science_network(),
-        publications=render_publications(sections["science"]["publications"]),
-        profile_links=render_profile_links(sections["science"].get("profiles", [])),
+        science_evidence=render_science_evidence(),
         team_eyebrow=sections["team"]["eyebrow"],
         team_title=sections["team"]["title"],
         team_intro=sections["team"]["intro"],
