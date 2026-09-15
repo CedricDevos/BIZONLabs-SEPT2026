@@ -343,25 +343,31 @@ def render_science_network() -> str:
     return f"""
     <div class="science-network" data-science-network>
       <div class="science-web" data-science-web data-active-category="{SCIENCE_CATEGORIES[0]["id"]}">
-        <svg class="science-web-lines" viewBox="0 0 900 560" aria-hidden="true" focusable="false">
-          <path class="web-ring" d="M450 92 C615 92 748 196 748 280 C748 364 615 468 450 468 C285 468 152 364 152 280 C152 196 285 92 450 92Z" />
-          <path class="web-ring web-ring-inner" d="M450 158 C562 158 653 213 653 280 C653 347 562 402 450 402 C338 402 247 347 247 280 C247 213 338 158 450 158Z" />
-          <path class="web-path web-path-modeling" data-web-line="modeling" d="M450 280 C378 220 298 158 212 118" />
-          <path class="web-path web-path-process" data-web-line="process" d="M450 280 C560 215 664 168 782 140" />
-          <path class="web-path web-path-architecture" data-web-line="architecture" d="M450 280 C594 310 700 352 804 420" />
-          <path class="web-path web-path-translation" data-web-line="translation" d="M450 280 C330 345 245 388 122 428" />
-          <path class="web-branch web-branch-modeling" data-web-line="modeling" d="M212 118 C265 91 338 84 404 100" />
-          <path class="web-branch web-branch-process" data-web-line="process" d="M782 140 C728 103 646 93 580 108" />
-          <path class="web-branch web-branch-architecture" data-web-line="architecture" d="M804 420 C744 462 650 474 572 450" />
-          <path class="web-branch web-branch-translation" data-web-line="translation" d="M122 428 C188 464 286 474 372 448" />
-        </svg>
-        <div class="science-web-core" aria-hidden="true"></div>
-        {"".join(nodes)}
-        <div class="science-category-note" data-science-category-note>
-          <span>{escape(SCIENCE_CATEGORIES[0]["label"])}</span>
-          <p>{escape(SCIENCE_CATEGORIES[0]["body"])}</p>
+        <div class="science-web-map">
+          <svg class="science-web-lines" viewBox="0 0 900 560" aria-hidden="true" focusable="false">
+            <path class="web-ring" d="M450 106 C596 106 716 184 716 280 C716 376 596 454 450 454 C304 454 184 376 184 280 C184 184 304 106 450 106Z" />
+            <path class="web-ring web-ring-inner" d="M450 172 C546 172 624 220 624 280 C624 340 546 388 450 388 C354 388 276 340 276 280 C276 220 354 172 450 172Z" />
+            <path class="web-strand" d="M450 106 C462 168 462 222 450 280 C438 338 438 392 450 454" />
+            <path class="web-strand" d="M184 280 C274 256 360 256 450 280 C540 304 626 304 716 280" />
+            <path class="web-strand" d="M272 156 C354 214 391 242 450 280 C509 318 546 346 628 404" />
+            <path class="web-strand" d="M628 156 C546 214 509 242 450 280 C391 318 354 346 272 404" />
+            <path class="web-path web-path-modeling" data-web-line="modeling" d="M450 280 C382 230 322 190 244 142" />
+            <path class="web-path web-path-process" data-web-line="process" d="M450 280 C526 224 596 184 678 142" />
+            <path class="web-path web-path-architecture" data-web-line="architecture" d="M450 280 C530 326 600 372 678 418" />
+            <path class="web-path web-path-translation" data-web-line="translation" d="M450 280 C374 326 316 372 244 418" />
+            <path class="web-branch web-branch-modeling" data-web-line="modeling" d="M244 142 C294 118 350 112 408 126" />
+            <path class="web-branch web-branch-process" data-web-line="process" d="M678 142 C622 116 562 112 506 128" />
+            <path class="web-branch web-branch-architecture" data-web-line="architecture" d="M678 418 C620 444 558 448 500 432" />
+            <path class="web-branch web-branch-translation" data-web-line="translation" d="M244 418 C302 444 360 448 414 432" />
+          </svg>
+          <div class="science-web-core" aria-hidden="true"></div>
+          {"".join(nodes)}
         </div>
         <div class="science-paper-cluster" aria-live="polite">
+          <div class="science-category-note" data-science-category-note>
+            <span>{escape(SCIENCE_CATEGORIES[0]["label"])}</span>
+            <p>{escape(SCIENCE_CATEGORIES[0]["body"])}</p>
+          </div>
           <p class="science-paper-panel-label">Selected papers</p>
           {"".join(papers)}
         </div>
