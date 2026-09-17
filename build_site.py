@@ -192,25 +192,25 @@ SCIENCE_CATEGORIES = [
     {
         "id": "modeling",
         "label": "Modeling",
-        "body": "Mechanistic models that connect process inputs to particle outcomes.",
+        "body": "Mechanistic thinking that links controllable process choices to particle outcomes.",
         "keywords": ("model", "advection", "diffusion", "distribution"),
     },
     {
         "id": "process",
         "label": "Process",
-        "body": "Manufacturing and mixing work that turns formulation ideas into controlled particles.",
+        "body": "Experience translating formulation ideas into reproducible particle-building workflows.",
         "keywords": ("manufactur", "mixer", "process", "precipitation", "downstream"),
     },
     {
         "id": "architecture",
         "label": "Architecture",
-        "body": "Structure and morphology studies that define what the particle becomes.",
+        "body": "Expertise in structure and morphology as design variables, not afterthoughts.",
         "keywords": ("structure", "morphology", "nanoscale", "architecture"),
     },
     {
         "id": "translation",
         "label": "Translation",
-        "body": "Delivery-facing work that keeps biological performance and scale in view.",
+        "body": "Delivery-facing work shaped by biological performance, scale, and practical use.",
         "keywords": ("delivery", "translat", "drug", "therapeutic", "digital"),
     },
 ]
@@ -244,41 +244,18 @@ def render_science_metrics(metrics: list[dict]) -> str:
 
 
 def render_science_evidence() -> str:
-    files = paper_files()
-    grouped: dict[str, list[dict[str, str]]] = {category["id"]: [] for category in SCIENCE_CATEGORIES}
-    for path in files:
-        metadata = paper_metadata(path)
-        grouped[science_category_for(metadata["title"])].append(metadata)
-
-    items = []
-    for index, category in enumerate(SCIENCE_CATEGORIES, start=1):
-        papers = grouped[category["id"]][:2]
-        paper_markup = "\n".join(
-            f"""
-            <li>
-              <span>{escape(paper["journal"])}</span>
-              <strong>{escape(paper["title"])}</strong>
-            </li>
-            """.strip()
-            for paper in papers
-        )
-        if not paper_markup:
-            paper_markup = "<li><strong>Selected work to be added.</strong></li>"
-        items.append(
-            f"""
-            <article class="evidence-card">
-              <div class="evidence-card-heading">
-                <span>{index:02d}</span>
-                <h3>{escape(category["label"])}</h3>
-              </div>
-              <p>{escape(category["body"])}</p>
-              <ul>
-                {paper_markup}
-              </ul>
-            </article>
-            """.strip()
-        )
-    return "\n".join(items)
+    return "\n".join(
+        f"""
+        <article class="evidence-card">
+          <div class="evidence-card-heading">
+            <span>{index:02d}</span>
+            <h3>{escape(category["label"])}</h3>
+          </div>
+          <p>{escape(category["body"])}</p>
+        </article>
+        """.strip()
+        for index, category in enumerate(SCIENCE_CATEGORIES, start=1)
+    )
 
 
 def copy_tree(source: Path, destination: Path) -> None:

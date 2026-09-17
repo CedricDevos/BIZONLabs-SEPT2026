@@ -38,12 +38,12 @@
     },
     "science": {
       "eyebrow": "Proof of depth",
-      "title": "The full-time team behind BIZON Labs has authored",
-      "body": "",
+      "title": "Scientific depth behind the platform.",
+      "body": "The full-time team behind BIZON Labs brings peer-reviewed experience across formulation, process development, particle architecture, and delivery biology. The public story stays intentionally high-level; the underlying work is built by scientists with a deep record in the field.",
       "metrics": [
         {
           "value": "60+",
-          "label": "papers"
+          "label": "publications"
         },
         {
           "value": "1,500+",
