@@ -38,8 +38,8 @@
     },
     "science": {
       "eyebrow": "Proof of depth",
-      "title": "Scientific depth behind the platform.",
-      "body": "The full-time team behind BIZON Labs brings peer-reviewed experience across formulation, process development, particle architecture, and delivery biology. The public story stays intentionally high-level; the underlying work is built by scientists with a deep record in the field.",
+      "title": "Built on peer-reviewed depth.",
+      "body": "The full-time team behind BIZON Labs has authored more than 60 publications, cited more than 1,500 times across public research profiles.",
       "metrics": [
         {
           "value": "60+",
@@ -65,15 +65,15 @@
       "profiles": [
         {
           "label": "Cedric Devos",
-          "url": "https://www.researchgate.net/profile/Cedric-Devos"
+          "url": "https://scholar.google.com/citations?view_op=search_authors&mauthors=Cedric+Devos"
         },
         {
           "label": "Peter Sagmeister",
-          "url": "https://www.researchgate.net/profile/Peter-Sagmeister-2"
+          "url": "https://scholar.google.com/citations?view_op=search_authors&mauthors=Peter+Sagmeister"
         },
         {
           "label": "Aniket Udepurkar",
-          "url": "https://adscientificindex.com/scientist/aniket-udepurkar/5923637/"
+          "url": "https://scholar.google.com/citations?view_op=search_authors&mauthors=Aniket+Udepurkar"
         }
       ]
     },

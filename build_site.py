@@ -243,18 +243,15 @@ def render_science_metrics(metrics: list[dict]) -> str:
     )
 
 
-def render_science_evidence() -> str:
+def render_science_evidence(profiles: list[dict]) -> str:
     return "\n".join(
         f"""
-        <article class="evidence-card">
-          <div class="evidence-card-heading">
-            <span>{index:02d}</span>
-            <h3>{escape(category["label"])}</h3>
-          </div>
-          <p>{escape(category["body"])}</p>
-        </article>
+        <a class="science-profile" href="{escape(profile["url"])}" target="_blank" rel="noopener">
+          <span>Google Scholar</span>
+          <strong>{escape(profile["label"])}</strong>
+        </a>
         """.strip()
-        for index, category in enumerate(SCIENCE_CATEGORIES, start=1)
+        for profile in profiles
     )
 
 
@@ -294,7 +291,7 @@ def build() -> None:
         science_title=sections["science"]["title"],
         science_body=sections["science"]["body"],
         science_metrics=render_science_metrics(sections["science"].get("metrics", [])),
-        science_evidence=render_science_evidence(),
+        science_evidence=render_science_evidence(sections["science"].get("profiles", [])),
         team_eyebrow=sections["team"]["eyebrow"],
         team_title=sections["team"]["title"],
         team_intro=sections["team"]["intro"],
