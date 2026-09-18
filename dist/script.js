@@ -1,6 +1,9 @@
 const header = document.querySelector("[data-header]");
 const canvas = document.querySelector("[data-particle-canvas]");
 const progress = document.querySelector("[data-page-progress]");
+const hero = document.querySelector(".hero");
+const heroVideo = document.querySelector("[data-hero-video]");
+const firstSection = document.querySelector("#approach");
 const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
 
 if ("scrollRestoration" in window.history) {
@@ -22,6 +25,36 @@ updateHeader();
 updateProgress();
 window.addEventListener("scroll", updateHeader, { passive: true });
 window.addEventListener("scroll", updateProgress, { passive: true });
+
+if (hero && heroVideo && firstSection && !reduceMotion.matches) {
+  let userMoved = false;
+  let introComplete = false;
+
+  const markMoved = () => {
+    if (introComplete) return;
+    userMoved = window.scrollY > 24;
+  };
+
+  window.addEventListener("wheel", markMoved, { passive: true, once: true });
+  window.addEventListener("touchmove", markMoved, { passive: true, once: true });
+  window.addEventListener("keydown", (event) => {
+    if (["ArrowDown", "PageDown", "Space", "Home", "End"].includes(event.code)) {
+      markMoved();
+    }
+  }, { once: true });
+
+  heroVideo.addEventListener("ended", () => {
+    introComplete = true;
+    hero.classList.add("is-complete");
+
+    window.setTimeout(() => {
+      const stillInIntro = window.scrollY < hero.offsetHeight * 0.42;
+      if (!userMoved && stillInIntro) {
+        firstSection.scrollIntoView({ behavior: "smooth", block: "start" });
+      }
+    }, 950);
+  });
+}
 
 document.querySelectorAll("nav a[href^='#']").forEach((link) => {
   const target = document.querySelector(link.getAttribute("href"));

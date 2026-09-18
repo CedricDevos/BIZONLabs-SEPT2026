@@ -257,7 +257,18 @@ nav a.is-active::after {
   overflow: hidden;
   background:
     linear-gradient(90deg, rgba(4, 3, 7, 0.14), rgba(4, 3, 7, 0) 54%, rgba(4, 3, 7, 0.1)),
-    url("assets/videos/bizon-hero-poster.jpg?v=b257ba4") center / cover;
+    url("assets/videos/bizon-hero-poster.jpg?v=lab-work-open") center / cover;
+}
+
+.hero-backdrop::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(circle at 50% 42%, rgba(28, 0, 89, 0.18), transparent 34%),
+    linear-gradient(180deg, #050509 0%, #090611 100%);
+  opacity: 0;
+  transition: opacity 1200ms ease;
 }
 
 .hero-video {
@@ -269,6 +280,16 @@ nav a.is-active::after {
   opacity: 0.98;
   filter: saturate(0.96) contrast(1) brightness(0.98);
   transform: scale(1.006);
+  transition: opacity 1100ms ease, filter 1100ms ease;
+}
+
+.hero.is-complete .hero-backdrop::after {
+  opacity: 1;
+}
+
+.hero.is-complete .hero-video {
+  opacity: 0;
+  filter: saturate(0.7) contrast(0.9) brightness(0.78);
 }
 
 .hero-canvas {
