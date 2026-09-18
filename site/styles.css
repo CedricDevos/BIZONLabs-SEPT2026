@@ -410,6 +410,47 @@ nav a.is-active::after {
   text-shadow: 0 18px 42px rgba(0, 0, 0, 0.42);
 }
 
+.hero-science-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.7rem;
+  margin-top: clamp(1rem, 1.8vw, 1.4rem);
+  color: rgba(255, 255, 255, 0.72);
+  font-family: var(--font-display);
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-decoration: none;
+  text-transform: uppercase;
+  text-shadow: 0 14px 34px rgba(0, 0, 0, 0.45);
+  transition:
+    color var(--motion-fast) var(--ease-premium),
+    opacity var(--motion-fast) var(--ease-premium),
+    transform var(--motion-fast) var(--ease-premium);
+}
+
+.hero-science-link::before {
+  content: "";
+  width: 2.4rem;
+  height: 1px;
+  background: rgba(255, 255, 255, 0.42);
+  transition:
+    background var(--motion-fast) var(--ease-premium),
+    transform var(--motion-fast) var(--ease-premium);
+}
+
+.hero-science-link:hover,
+.hero-science-link:focus-visible {
+  color: #fff;
+  transform: translate3d(0.18rem, 0, 0);
+}
+
+.hero-science-link:hover::before,
+.hero-science-link:focus-visible::before {
+  background: rgba(255, 255, 255, 0.82);
+  transform: scaleX(1.16);
+}
+
 .eyebrow {
   margin: 0 0 1rem;
   color: rgba(255, 255, 255, 0.54);
@@ -929,6 +970,11 @@ p {
 
 .science-profile:hover strong {
   text-decoration-color: rgba(28, 0, 89, 0.55);
+}
+
+.science-lecture-link {
+  padding-left: 1rem;
+  border-left: 1px solid rgba(28, 0, 89, 0.16);
 }
 
 .team-section {
