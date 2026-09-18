@@ -48,6 +48,9 @@
     <main id="main">
       <section class="hero" id="top" aria-labelledby="hero-title">
         <div class="hero-backdrop" aria-hidden="true">
+          <video class="hero-video" autoplay muted loop playsinline preload="metadata" poster="assets/videos/bizon-hero-poster.jpg?v=calm-bison-lab">
+            <source src="assets/videos/bizon-hero-loop.mp4?v=calm-bison-lab" type="video/mp4" />
+          </video>
           <canvas class="hero-canvas" data-particle-canvas></canvas>
           <div class="hero-film"></div>
           <img class="hero-icon" src="assets/logos/bison-icon-white.svg" alt="" />
@@ -128,17 +131,13 @@
 
       <section class="science-section light-section reveal-group" id="science" aria-labelledby="science-title">
         <div class="science-showcase" data-reveal>
+          <p class="eyebrow">$science_eyebrow</p>
           <div class="science-copy">
-            <p class="eyebrow">$science_eyebrow</p>
             <h2 id="science-title">$science_title</h2>
-            <p>$science_body</p>
+            <div class="science-evidence" aria-label="$science_body">
+              $science_evidence
+            </div>
           </div>
-          <div class="science-metrics" aria-label="Research impact">
-            $science_metrics
-          </div>
-        </div>
-        <div class="science-evidence" data-reveal>
-          $science_evidence
         </div>
       </section>
 

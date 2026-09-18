@@ -48,6 +48,9 @@
     <main id="main">
       <section class="hero" id="top" aria-labelledby="hero-title">
         <div class="hero-backdrop" aria-hidden="true">
+          <video class="hero-video" autoplay muted loop playsinline preload="metadata" poster="assets/videos/bizon-hero-poster.jpg?v=calm-bison-lab">
+            <source src="assets/videos/bizon-hero-loop.mp4?v=calm-bison-lab" type="video/mp4" />
+          </video>
           <canvas class="hero-canvas" data-particle-canvas></canvas>
           <div class="hero-film"></div>
           <img class="hero-icon" src="assets/logos/bison-icon-white.svg" alt="" />
@@ -174,24 +177,11 @@
 
       <section class="science-section light-section reveal-group" id="science" aria-labelledby="science-title">
         <div class="science-showcase" data-reveal>
+          <p class="eyebrow">Scientific track record</p>
           <div class="science-copy">
-            <p class="eyebrow">Proof of depth</p>
-            <h2 id="science-title">Built on peer-reviewed depth.</h2>
-            <p>The full-time team behind BIZON Labs has authored more than 60 publications, cited more than 1,500 times across public research profiles.</p>
-          </div>
-          <div class="science-metrics" aria-label="Research impact">
-            <div class="science-metric">
-          <strong>60+</strong>
-          <span>publications</span>
-        </div>
-<div class="science-metric">
-          <strong>1,500+</strong>
-          <span>citations</span>
-        </div>
-          </div>
-        </div>
-        <div class="science-evidence" data-reveal>
-          <a class="science-profile" href="https://scholar.google.com/citations?view_op=search_authors&amp;mauthors=Cedric+Devos" target="_blank" rel="noopener">
+            <h2 id="science-title">The full-time team behind BIZON Labs has authored 60+ publications with 1,500+ citations across public research profiles.</h2>
+            <div class="science-evidence" aria-label="Selected public profiles">
+              <a class="science-profile" href="https://scholar.google.com/citations?view_op=search_authors&amp;mauthors=Cedric+Devos" target="_blank" rel="noopener">
           <span>Google Scholar</span>
           <strong>Cedric Devos</strong>
         </a>
@@ -203,6 +193,8 @@
           <span>Google Scholar</span>
           <strong>Aniket Udepurkar</strong>
         </a>
+            </div>
+          </div>
         </div>
       </section>
 
