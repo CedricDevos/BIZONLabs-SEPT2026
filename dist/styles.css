@@ -257,7 +257,7 @@ nav a.is-active::after {
   overflow: hidden;
   background:
     linear-gradient(90deg, rgba(4, 3, 7, 0.14), rgba(4, 3, 7, 0) 54%, rgba(4, 3, 7, 0.1)),
-    url("assets/videos/bizon-hero-poster.jpg?v=calm-bison-lab") center / cover;
+    url("assets/videos/bizon-hero-poster.jpg?v=b257ba4") center / cover;
 }
 
 .hero-video {
