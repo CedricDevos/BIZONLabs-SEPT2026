@@ -41,6 +41,7 @@
         <a href="#team">The Herd</a>
         <a href="#about">About</a>
         <a href="#science">Science</a>
+        <a href="#news">News</a>
         <a href="#contact">Contact</a>
       </nav>
     </header>
@@ -48,8 +49,8 @@
     <main id="main">
       <section class="hero" id="top" aria-labelledby="hero-title">
         <div class="hero-backdrop" aria-hidden="true">
-          <video class="hero-video" data-hero-video autoplay muted playsinline preload="metadata" poster="assets/videos/bizon-hero-poster.jpg?v=human-bison-end">
-            <source src="assets/videos/bizon-hero-loop.mp4?v=human-bison-end" type="video/mp4" />
+          <video class="hero-video" data-hero-video autoplay muted playsinline preload="metadata" poster="assets/videos/bizon-hero-poster.jpg?v=bison-still-end">
+            <source src="assets/videos/bizon-hero-loop.mp4?v=bison-still-end" type="video/mp4" />
           </video>
           <canvas class="hero-canvas" data-particle-canvas></canvas>
           <div class="hero-film"></div>
@@ -62,8 +63,8 @@
         <div class="hero-content">
           <p class="hero-kicker">Next-generation lipid nanoparticles</p>
           <h1 id="hero-title">$subheadline</h1>
-          <a class="hero-science-link" href="https://vimeo.com/1227401737?fl=pl&amp;fe=vl" target="_blank" rel="noopener noreferrer" aria-label="Watch the BIZON Labs science lecture on Vimeo">
-            <span>Watch the science</span>
+          <a class="hero-science-link" href="https://vimeo.com/1227401737?fl=pl&amp;fe=vl" target="_blank" rel="noopener noreferrer" aria-label="Learn more about the BIZON Labs science on Vimeo">
+            <span>Learn more</span>
           </a>
         </div>
       </section>
@@ -141,25 +142,21 @@
               $science_evidence
               <a class="science-profile science-lecture-link" href="https://vimeo.com/1227401737?fl=pl&amp;fe=vl" target="_blank" rel="noopener noreferrer">
                 <span>Lecture</span>
-                <strong>Platform overview on Vimeo</strong>
+                <strong>Learn more on Vimeo</strong>
               </a>
             </div>
           </div>
         </div>
       </section>
 
-      <section class="media-band reveal-group" aria-label="BIZON visual environment">
-        <div class="media-copy" data-reveal>
-          <p class="eyebrow">The build</p>
-          <h2>From process to particle architecture.</h2>
-          <p>Our work sits at the interface of formulation, process development, and delivery biology.</p>
-          <div class="media-controls" aria-label="Media controls">
-            <button class="media-arrow" type="button" data-media-prev aria-label="Previous media">&larr;</button>
-            <button class="media-arrow" type="button" data-media-next aria-label="Next media">&rarr;</button>
-          </div>
+      <section class="news-section light-section reveal-group" id="news" aria-labelledby="news-title">
+        <div class="news-lead" data-reveal>
+          <p class="eyebrow">$news_eyebrow</p>
+          <h2 id="news-title">$news_title</h2>
+          <p>$news_intro</p>
         </div>
-        <div class="media-library" data-media-gallery data-reveal aria-label="BIZON media library">
-          $media_items
+        <div class="news-list" data-reveal>
+          $news_items
         </div>
       </section>
 

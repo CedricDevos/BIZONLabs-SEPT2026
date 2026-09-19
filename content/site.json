@@ -77,6 +77,31 @@
         }
       ]
     },
+    "news": {
+      "eyebrow": "News / Announcements",
+      "title": "Updates from BIZON Labs.",
+      "intro": "Selected company and science updates as we continue building the platform.",
+      "items": [
+        {
+          "date": "September 2026",
+          "title": "BIZON Labs public site is live",
+          "body": "We are beginning to share more about our approach to next-generation lipid nanoparticle design.",
+          "url": ""
+        },
+        {
+          "date": "September 2026",
+          "title": "Platform overview available",
+          "body": "A lecture-style overview introduces the scientific thinking behind the company.",
+          "url": "https://vimeo.com/1227401737?fl=pl&fe=vl"
+        },
+        {
+          "date": "Ongoing",
+          "title": "Scientific and strategic conversations",
+          "body": "We are speaking with collaborators, investors, mentors, and partners aligned with formulation, process development, and delivery biology.",
+          "url": ""
+        }
+      ]
+    },
     "team": {
       "eyebrow": "The Herd",
       "title": "The people walking into the hard problems.",

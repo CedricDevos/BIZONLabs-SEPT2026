@@ -63,7 +63,6 @@ def render_team(members: list[dict]) -> str:
               <div>
                 <h3>{member["name"]}</h3>
                 <p class="role">{member["role"]}</p>
-                <p>{member["bio"]}</p>
                 {linkedin}
               </div>
             </article>
@@ -255,6 +254,27 @@ def render_science_evidence(profiles: list[dict]) -> str:
     )
 
 
+def render_news_items(items: list[dict]) -> str:
+    rendered = []
+    for item in items:
+        title = escape(item["title"])
+        url = item.get("url", "")
+        if url:
+            title_html = f'<a href="{escape(url)}" target="_blank" rel="noopener">{title}</a>'
+        else:
+            title_html = title
+        rendered.append(
+            f"""
+            <article class="news-item">
+              <time>{escape(item["date"])}</time>
+              <h3>{title_html}</h3>
+              <p>{escape(item["body"])}</p>
+            </article>
+            """.strip()
+        )
+    return "\n".join(rendered)
+
+
 def copy_tree(source: Path, destination: Path) -> None:
     if destination.exists():
         shutil.rmtree(destination)
@@ -292,11 +312,14 @@ def build() -> None:
         science_body=sections["science"]["body"],
         science_metrics=render_science_metrics(sections["science"].get("metrics", [])),
         science_evidence=render_science_evidence(sections["science"].get("profiles", [])),
+        news_eyebrow=sections["news"]["eyebrow"],
+        news_title=sections["news"]["title"],
+        news_intro=sections["news"]["intro"],
+        news_items=render_news_items(sections["news"].get("items", [])),
         team_eyebrow=sections["team"]["eyebrow"],
         team_title=sections["team"]["title"],
         team_intro=sections["team"]["intro"],
         team_members=render_team(sections["team"]["members"]),
-        media_items=render_media_library(),
         contact_eyebrow=sections["contact"]["eyebrow"],
         contact_title=sections["contact"]["title"],
         contact_body=sections["contact"]["body"],

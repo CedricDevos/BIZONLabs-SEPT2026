@@ -3,7 +3,6 @@ const canvas = document.querySelector("[data-particle-canvas]");
 const progress = document.querySelector("[data-page-progress]");
 const hero = document.querySelector(".hero");
 const heroVideo = document.querySelector("[data-hero-video]");
-const firstSection = document.querySelector("#approach");
 const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
 
 if ("scrollRestoration" in window.history) {
@@ -26,33 +25,11 @@ updateProgress();
 window.addEventListener("scroll", updateHeader, { passive: true });
 window.addEventListener("scroll", updateProgress, { passive: true });
 
-if (hero && heroVideo && firstSection && !reduceMotion.matches) {
-  let userMoved = false;
-  let introComplete = false;
-
-  const markMoved = () => {
-    if (introComplete) return;
-    userMoved = window.scrollY > 24;
-  };
-
-  window.addEventListener("wheel", markMoved, { passive: true, once: true });
-  window.addEventListener("touchmove", markMoved, { passive: true, once: true });
-  window.addEventListener("keydown", (event) => {
-    if (["ArrowDown", "PageDown", "Space", "Home", "End"].includes(event.code)) {
-      markMoved();
-    }
-  }, { once: true });
-
+if (hero && heroVideo && !reduceMotion.matches) {
   heroVideo.addEventListener("ended", () => {
-    introComplete = true;
     hero.classList.add("is-complete");
-
-    window.setTimeout(() => {
-      const stillInIntro = window.scrollY < hero.offsetHeight * 0.42;
-      if (!userMoved && stillInIntro) {
-        firstSection.scrollIntoView({ behavior: "smooth", block: "start" });
-      }
-    }, 950);
+    heroVideo.pause();
+    heroVideo.currentTime = 0;
   });
 }
 
@@ -68,7 +45,7 @@ document.querySelectorAll("nav a[href^='#']").forEach((link) => {
   observer.observe(target);
 });
 
-document.querySelectorAll("[data-reveal], .pillar, .team-card, .science-metric").forEach((element) => {
+document.querySelectorAll("[data-reveal], .pillar, .team-card, .science-metric, .news-item").forEach((element) => {
   element.setAttribute("data-reveal", "");
 });
 
@@ -87,69 +64,6 @@ const revealObserver = new IntersectionObserver(
 document.querySelectorAll("[data-reveal]").forEach((element) => {
   revealObserver.observe(element);
 });
-
-const mediaItems = Array.from(document.querySelectorAll("[data-media-item]"));
-const mediaGallery = document.querySelector("[data-media-gallery]");
-const mediaNext = document.querySelector("[data-media-next]");
-const mediaPrev = document.querySelector("[data-media-prev]");
-let activeMedia = 0;
-
-const scrollItemInTrack = (track, item, behavior = "smooth") => {
-  if (!track || !item) return;
-  const left = item.offsetLeft - track.offsetLeft;
-  track.scrollTo({ left, behavior });
-};
-
-const scrollMediaToActive = (behavior = "smooth") => {
-  if (!mediaItems[activeMedia]) return;
-  scrollItemInTrack(mediaGallery, mediaItems[activeMedia], behavior);
-};
-
-const syncMedia = (behavior = "smooth") => {
-  mediaItems.forEach((item, index) => {
-    const offset = (index - activeMedia + mediaItems.length) % mediaItems.length;
-    const isCurrent = offset === 0;
-    const isNext = offset === 1;
-    const isThird = offset === 2;
-    item.classList.toggle("is-current", isCurrent);
-    item.classList.toggle("is-next", isNext);
-    item.classList.toggle("is-third", isThird);
-    item.querySelectorAll("video").forEach((video) => {
-      if (!reduceMotion.matches) {
-        video.play().catch(() => {});
-      } else {
-        video.pause();
-      }
-    });
-  });
-  scrollMediaToActive(behavior);
-};
-
-mediaItems.forEach((item) => {
-  item.querySelectorAll("video").forEach((video) => {
-    video.addEventListener("error", () => {
-      item.classList.add("has-video-error");
-    });
-  });
-});
-
-if (mediaItems.length > 0) {
-  syncMedia("auto");
-}
-
-if (mediaItems.length > 1 && mediaNext) {
-  mediaNext.addEventListener("click", () => {
-    activeMedia = (activeMedia + 1) % mediaItems.length;
-    syncMedia();
-  });
-}
-
-if (mediaItems.length > 1 && mediaPrev) {
-  mediaPrev.addEventListener("click", () => {
-    activeMedia = (activeMedia - 1 + mediaItems.length) % mediaItems.length;
-    syncMedia();
-  });
-}
 
 if (canvas) {
   const context = canvas.getContext("2d");
